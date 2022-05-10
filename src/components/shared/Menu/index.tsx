@@ -1,10 +1,15 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
+import {useAppDispatch} from '../../../hooks/redux'
+import {logout} from '../../../store/reducers/ActionCreators/authActions'
 import Footer from '../Footer'
+import ConfirmationDialog from '../Modals/ConfirmationDialog'
 import Typography from '../Typography'
 import {menuItems} from './constants'
 import * as Styles from './styles'
+
+import ExitIcon from '../../../assets/images/ExitIcon.svg'
 
 
 type NavItemPros = {
@@ -27,12 +32,28 @@ const NavItem = ({Icon, name, pathName}: NavItemPros) => {
 }
 
 const Menu = () => {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
   return (
     <Styles.Menu>
       <Styles.MenuNav>
         {menuItems.map((navItem: NavItemPros, index: number) => (
           <NavItem Icon={navItem.Icon} name={navItem.name} pathName={navItem.pathName} key={`menu-item-${index}`}/>
         ))}
+        <ConfirmationDialog
+          trigger={
+            <Styles.NavItem type={'button'}>
+              <ExitIcon />
+              <Typography textSize={1}>Вийти</Typography>
+            </Styles.NavItem>
+          }
+          onConfirmationCallback={logoutHandler}
+        />
       </Styles.MenuNav>
 
       <Styles.MenuFooter>

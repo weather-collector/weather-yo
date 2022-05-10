@@ -10,7 +10,7 @@ type MetaHeadProps = {
 }
 
 const MetaHead = ({
-                    themeColor = '#fff',
+                    themeColor = '#F8FAFF',
                     title = 'Weather Collector',
                     description = 'Analise and Collect weather data',
                     keywords = 'weather, collect, data, meteorology',

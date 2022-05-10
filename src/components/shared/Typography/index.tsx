@@ -9,7 +9,7 @@ type TypographyProps = {
   tag?: any;
   textColor?: string;
   fontFamily?: string;
-  textSize: keyof typeof SIZES;
+  textSize: keyof typeof SIZES | string;
   lineHeight?: number;
   fontWeight?: number;
 }

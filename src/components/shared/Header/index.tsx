@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import {COLORS} from '../../../styles/colors'
 import BaseContainer from '../BaseContainer'
 import * as Styles from './styles'
 

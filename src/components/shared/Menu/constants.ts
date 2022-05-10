@@ -1,5 +1,4 @@
 import AnalyzeIcon from '../../../assets/images/AnalyzeIcon.svg'
-import ExitIcon from '../../../assets/images/ExitIcon.svg'
 import HomeIcon from '../../../assets/images/HomeIcon.svg'
 import ReportIcon from '../../../assets/images/ReportIcon.svg'
 import SettingsIcon from '../../../assets/images/SettingsIcon.svg'
@@ -25,10 +24,5 @@ export const menuItems = [
     Icon: SettingsIcon,
     name: 'Налаштування',
     pathName: '/settings'
-  },
-  {
-    Icon: ExitIcon,
-    name: 'Вийти',
-    pathName: '/exit'
   }
 ]

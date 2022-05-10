@@ -1,8 +1,11 @@
 import styled from 'styled-components'
-import {COLORS} from '../../../styles/colors'
+import {COLORS} from '../../../styles/theme'
 
 
 export const Menu = styled.nav`
+  flex-shrink: 0;
+  top: 60px;
+  position: sticky;
   max-width: 280px;
   width: 100%;
   height: calc(100vh - 60px);
@@ -21,12 +24,18 @@ export const MenuNav = styled.div`
   margin-top: 60px;
 `
 
-export const NavItem = styled.a<{isActive: boolean}>`
+export const NavItem = styled.a<{isActive?: boolean}>`
+  cursor: pointer;
   padding: 8px 15px;
   background-color: ${props => props.isActive && COLORS.accent};
   display: flex;
+  align-items: center;
   gap: 10px;
   border-radius: 4px;
+  transition: background-color 150ms ease-in-out;
+  &:hover {
+    background-color: ${COLORS.hoveredAccent};
+  }
 `
 
 export const MenuFooter = styled.div`

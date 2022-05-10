@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import {COLORS} from '../../../styles/colors'
+import {COLORS} from '../../../styles/theme'
 
 
 export const Header = styled.div`
   height: 60px;
-  background-color: ${COLORS.whiteBg};
+  background-color: ${COLORS.lightBg};
   display: flex;
   align-items: center;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);

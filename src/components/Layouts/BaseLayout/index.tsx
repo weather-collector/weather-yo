@@ -1,26 +1,27 @@
-import React from 'react';
-import Header from '../shared/Header'
-import Menu from '../shared/Menu'
+import React from 'react'
+import Header from '../../shared/Header'
+import Menu from '../../shared/Menu'
 
 import * as Styles from './styles'
+
 
 type BaseLayoutProps = {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
+const BaseLayout = ({children}: BaseLayoutProps) => {
   return (
     <>
-      <header>
+      <Styles.Header>
         <Header />
-      </header>
+      </Styles.Header>
 
       <Styles.Main>
         <Menu />
         {children}
       </Styles.Main>
     </>
-  );
-};
+  )
+}
 
-export default BaseLayout;
+export default BaseLayout

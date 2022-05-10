@@ -2,13 +2,13 @@ import React from 'react'
 import * as Styles from './styles'
 
 
-type BaseContainer = {
+type BaseContainerProps = {
   children: React.ReactNode | React.ReactNode[];
   fluid?: boolean
 }
 
 
-function BaseContainer({children, fluid = false}: BaseContainer) {
+function BaseContainer({children, fluid = false}: BaseContainerProps) {
   return (
     <Styles.BaseContainer fluid={fluid}>
       {children}
