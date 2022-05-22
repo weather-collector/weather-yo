@@ -11,7 +11,8 @@ type ButtonProps = {
 export const Button = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 8px 12px;
-  width: ${props => props.width};
+  max-width: ${props => props.width};
+  width: 100%;
   border-radius: 4px;
   display: flex;
   align-items: center;

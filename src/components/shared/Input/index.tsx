@@ -7,12 +7,13 @@ export interface IInput extends InputHTMLAttributes<HTMLInputElement>{
   name: string
   caption?: string
   placeholder?: string
+  width?: string
 }
 
 
-const Input = ({label, error, name, placeholder, caption = '', ...rest}: IInput) => {
+const Input = ({label, error, name, placeholder, width, caption = '', ...rest}: IInput) => {
   return (
-    <Styles.InputWrapper isCaption={!!caption}>
+    <Styles.InputWrapper isCaption={!!caption} width={width}>
       <Styles.Label htmlFor={name}>{label}</Styles.Label>
       <Styles.Input error={`${error}`} id={name} name={name} placeholder={placeholder} {...rest} />
       <Styles.InputCaption>{caption}</Styles.InputCaption>

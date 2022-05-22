@@ -1,4 +1,4 @@
-import {Content, Description, Dialog, Overlay, Trigger} from '@radix-ui/react-dialog'
+import {Content, Description, Overlay, Root, Trigger} from '@radix-ui/react-dialog'
 import styled, {keyframes} from 'styled-components'
 import {COLORS} from '../../../styles/theme'
 
@@ -21,6 +21,10 @@ const contentShow = keyframes`
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
+`
+
+export const CustomRoot = styled(Root)`
+  z-index: 99;
 `
 
 export const CustomOverlay = styled(Overlay)`

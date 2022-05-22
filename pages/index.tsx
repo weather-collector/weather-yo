@@ -1,28 +1,28 @@
 import type {NextPage} from 'next'
-import {useEffect, useState} from 'react'
-import BaseLayout from '../src/components/Layouts/BaseLayout'
+import styled from 'styled-components'
+import EmptyContainer from '../src/components/homePage/EmptyContainer'
+import BaseLayout from '../src/components/layouts/BaseLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {useAppDispatch, useAppSelector} from '../src/hooks/redux'
-import {fetchUsers} from '../src/store/reducers/ActionCreators'
+import {useAppSelector} from '../src/hooks/redux'
 import {COLORS} from '../src/styles/theme'
 
 
-const Home: NextPage = () => {
-  // const [load, setLoad] = useState(true)
-  const {isAuth} = useAppSelector(state => state.authReducer)
-  // const dispatch = useAppDispatch()
-  // const {isLoading, users, error} = useAppSelector(state => state.userReducer)
-  // useEffect(() => {
-  //   dispatch(fetchUsers())
-  // }, [dispatch])
-  // useEffect(() => {
-  //   setLoad(false)
-  // }, [isLoading])
 
-  // if (isLoading) {
-  //   return <Typography textSize={3} textColor={'#000'}>Завантаження...</Typography>
-  // }
+const StyledMainContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  > * {
+    &:nth-child(1) {
+      padding: 10px;
+    }
+  }
+`
+
+const Home: NextPage = () => {
+  const {isAuth} = useAppSelector(state => state.authReducer)
 
   return (
     <>
@@ -30,9 +30,10 @@ const Home: NextPage = () => {
 
       {isAuth ? (
         <BaseLayout>
-          {/*{isLoading && <Typography textColor={'#000'} textSize={1}>Загрузка...</Typography>}*/}
-          {/*{error && <Typography textColor={'#000'} textSize={1}>{error}</Typography>}*/}
-          {/*<Typography textColor={'#000'} textSize={1}>{JSON.stringify(users, null, 2)}</Typography>*/}
+          <StyledMainContentWrapper>
+            <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Моя Панель</Typography>
+            <EmptyContainer />
+          </StyledMainContentWrapper>
         </BaseLayout>
       ) : (
         <Typography textSize={3} textColor={COLORS.accent}>LANDING PAGE</Typography>
@@ -40,5 +41,6 @@ const Home: NextPage = () => {
     </>
   )
 }
+
 
 export default Home

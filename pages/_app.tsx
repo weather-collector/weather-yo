@@ -15,10 +15,13 @@ const store = setupStore()
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <Provider store={store}>
-      <GlobalStyles />
-      <General />
-      <ToastContainer limit={2} pauseOnHover={false} position={'bottom-right'} />
-      <Component {...pageProps} />
+      {/*<ToastProvider>*/}
+        <GlobalStyles />
+        <General />
+        {/*<ToastComponent />*/}
+        <ToastContainer limit={2} autoClose={5000} pauseOnHover={false} position={'bottom-right'} />
+        <Component {...pageProps} />
+      {/*</ToastProvider>*/}
     </Provider>
   )
 }

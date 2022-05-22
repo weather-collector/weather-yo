@@ -6,7 +6,7 @@ import * as Styles from './styles'
 type ButtonProps = {
   type?: 'submit' | 'button'
   onClick?: () => void
-  children?: React.ReactNode
+  children: React.ReactNode
   bgColor?: string
   hoveredBgColor?: string
   activeBgColor?: string

@@ -1,11 +1,15 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import authReducer from './reducers/AuthSlice'
-import userReducer from './reducers/UserSlice'
+import requestData from './reducers/RequestWeatherSlice'
+import interfaceReducer from './reducers/InterfaceSlice'
+import reportReducer from './reducers/ReportSlice'
 
 
 const rootReducers = combineReducers({
-  userReducer,
-  authReducer
+  authReducer,
+  requestData,
+  interfaceReducer,
+  reportReducer,
 })
 
 export const setupStore = () => {

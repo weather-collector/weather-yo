@@ -1,4 +1,5 @@
 import axios, {AxiosError} from 'axios'
+import {toast} from 'react-toastify'
 import {AuthResponse} from '../models/response/AuthResponse'
 
 
@@ -30,7 +31,7 @@ $api.interceptors.request.use((config) => {
       return $api.request(originalRequest)
     } catch(error) {
       if (error instanceof AxiosError){
-        console.log(error.response?.data?.message)
+        toast(error.response?.data?.message)
       }
     }
   }

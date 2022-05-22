@@ -1,9 +1,11 @@
 import axios, {AxiosError} from 'axios'
+import {useEffect} from 'react'
 import {toast} from 'react-toastify'
 import $api from '../../../http'
 import {AuthResponse} from '../../../models/response/AuthResponse'
 import {AppDispatch} from '../../store'
 import {authSlice} from '../AuthSlice'
+import {interfaceSlice} from '../InterfaceSlice'
 
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
@@ -39,10 +41,11 @@ export const logout = () => async (dispatch: AppDispatch) => {
     const response = await $api.post<AuthResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/logout`)
     dispatch(authSlice.actions.logout())
     localStorage.removeItem('token')
+    document.location.replace(process.env.NEXT_PUBLIC_CLIENT_URL!)
     return true
   } catch (error) {
     if (error instanceof AxiosError){
-      toast(error.response?.data?.message)
+      console.log(error.response?.data?.message)
       return false
     }
   }
@@ -57,7 +60,7 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
     dispatch(authSlice.actions.auth(response.data))
   } catch(error) {
     if (error instanceof AxiosError){
-      console.log(error.response?.data?.message)
+      // toast(error.response?.data?.message)
     }
   } finally {
     dispatch(authSlice.actions.loading(false))
