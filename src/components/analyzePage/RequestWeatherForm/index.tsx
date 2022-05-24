@@ -1,8 +1,8 @@
+import {subDays} from 'date-fns'
 import {Formik, FormikProps} from 'formik'
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import * as Yup from 'yup'
-import ExitIcon from '../../../assets/images/ExitIcon.svg'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {generateReport} from '../../../store/reducers/ActionCreators/reportActions'
 import {COLORS} from '../../../styles/theme'
@@ -32,28 +32,29 @@ const GatherSchema = Yup.object().shape({
 const RequestWeatherForm = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const {locationName, latitude, longitude} = useAppSelector(state => state.requestData)
+  const {locationName, latitude, longitude} = useAppSelector(state => state.mapFormReducer)
 
-  const [counter, setCounter] = useState<number>(0)
-  console.log(counter)
+  const [modalCounter, setModalCounter] = useState<number>(0)
+  const [reportId, setReportId] = useState<string>('')
   const [modalMessage, setModalMessage] = useState({
-    title: '',
-    description: 'Перейдіть до нього просто зараз!'
+    title: 'Ваш звіт було успішно сформовано',
+    description: 'Перейдіть до нього просто зараз!',
   })
 
   const initialValues: GatherFormValues = {
     locationName: locationName,
     latitude: latitude,
     longitude: longitude,
-    dateRange: `${convertDateToString(new Date())} - ${convertDateToString(new Date())}`,
+    dateRange: `${convertDateToString(subDays(new Date(), 14))} - ${convertDateToString(subDays(new Date(), 5))}`,
   }
 
   const sendRequestHandler = (values: GatherFormValues) => {
     const responsePromise = dispatch(generateReport({...values}))
-    responsePromise.then(message => {
-      if (message) {
-        setCounter(prev => prev + 1)
-        setModalMessage({...modalMessage, title: message})
+    responsePromise.then(data => {
+      if (data) {
+        setModalCounter(prev => prev + 1)
+        setModalMessage({...modalMessage, title: data.message})
+        setReportId(data.reportId)
       }
     })
   }
@@ -120,10 +121,10 @@ const RequestWeatherForm = () => {
       </Formik>
 
       <ConfirmationDialog
-        counter={counter}
+        counter={modalCounter}
         title={modalMessage.title}
         description={modalMessage.description}
-        onConfirmationCallback={() => router.push('/')}
+        onConfirmationCallback={() => router.push(`/reports/${reportId}`)}
       />
     </>
   )

@@ -5,7 +5,8 @@ import {Marker, TileLayer, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import {toast} from 'react-toastify'
 import {useAppDispatch} from '../../../hooks/redux'
-import {requestWeatherSlice} from '../../../store/reducers/RequestWeatherSlice'
+import {setFromMapToForm} from '../../../store/reducers/ActionCreators/mapFormActions'
+import {mapFormSlice} from '../../../store/reducers/MapFormSlice'
 import * as Styles from './styles'
 
 
@@ -56,20 +57,13 @@ function LocationMarker({position, setPosition}: LocationMarkerProps) {
 
 const LeafletMap = () => {
   const dispatch = useAppDispatch()
-  const [position, setPosition] = useState<PositionProps>({lat: 0, lng: 0})
+  const [position, setPosition] = useState<PositionProps>({lat: 49.59, lng: 34.55})
 
   useEffect(() => {
-    dispatch(requestWeatherSlice.actions.loading(true))
-    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${position.lng},${position.lat}.json?language=uk&types=place,region&access_token=${accessToken}`)
-      .then(response => {
-        dispatch(requestWeatherSlice.actions.setRequestData({
-          locationName: response.data?.features[0]?.text_uk || '',
-          latitude: Math.round(position.lat * 100) / 100,
-          longitude: Math.round(position.lng * 100) / 100,
-        }))
-      })
-      .catch((reason) => toast(reason))
-      .finally(() => dispatch(requestWeatherSlice.actions.loading(false)))
+    dispatch(setFromMapToForm({
+      latitude: position.lat,
+      longitude: position.lng,
+    }))
   }, [position])
 
   return (

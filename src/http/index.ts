@@ -5,7 +5,7 @@ import {AuthResponse} from '../models/response/AuthResponse'
 
 const $api = axios.create({
   withCredentials: true,
-  baseURL: process.env.API_URL
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
 })
 
 
@@ -16,11 +16,10 @@ $api.interceptors.request.use((config) => {
   }
 })
 
-$api.interceptors.request.use((config) => {
+$api.interceptors.response.use((config) => {
   return config
 }, async (error) => {
   const originalRequest = error.config
-
   if (error.response.status === 401 && !error?.config?._isRetry) {
     originalRequest._isRetry = true
     try {
@@ -29,9 +28,10 @@ $api.interceptors.request.use((config) => {
       })
       localStorage.setItem('token', response.data.accessToken)
       return $api.request(originalRequest)
-    } catch(error) {
-      if (error instanceof AxiosError){
-        toast(error.response?.data?.message)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        document.location.replace(process.env.NEXT_PUBLIC_CLIENT_URL!)
+        console.log(error.response?.data?.message)
       }
     }
   }

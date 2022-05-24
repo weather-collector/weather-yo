@@ -81,7 +81,7 @@ const ConfirmationDialog = ({trigger, onConfirmationCallback, title = '', descri
                   textSize={'14px'}
                   textColor={COLORS.successText}
                   fontWeight={600}>
-                  Підтвердити
+                  Ок
                 </Typography>
               </Button>
             </Styles.ConfirmationDialogButtonsWrapper>

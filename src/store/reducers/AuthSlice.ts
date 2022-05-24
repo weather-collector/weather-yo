@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: {} as IUser,
   isAuth: false,
-  isLoading: false
+  isLoading: true
 }
 
 export const authSlice = createSlice({

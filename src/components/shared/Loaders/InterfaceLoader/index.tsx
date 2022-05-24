@@ -1,7 +1,7 @@
 import * as Styles from './styles'
 
 
-const Loader = () => {
+const InterfaceLoader = () => {
   return (
     <Styles.LoaderContainer>
       <Styles.Loader>
@@ -11,4 +11,4 @@ const Loader = () => {
   )
 }
 
-export default Loader
+export default InterfaceLoader

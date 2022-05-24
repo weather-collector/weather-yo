@@ -1,12 +1,14 @@
 import type {NextPage} from 'next'
+import {useRouter} from 'next/router'
+import {useEffect} from 'react'
 import styled from 'styled-components'
 import EmptyContainer from '../src/components/homePage/EmptyContainer'
 import BaseLayout from '../src/components/layouts/BaseLayout'
+import GlobalLoader from '../src/components/shared/Loaders/GlobalLoader'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
 import {useAppSelector} from '../src/hooks/redux'
 import {COLORS} from '../src/styles/theme'
-
 
 
 const StyledMainContentWrapper = styled.div`
@@ -14,6 +16,7 @@ const StyledMainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
   > * {
     &:nth-child(1) {
       padding: 10px;
@@ -22,24 +25,26 @@ const StyledMainContentWrapper = styled.div`
 `
 
 const Home: NextPage = () => {
-  const {isAuth} = useAppSelector(state => state.authReducer)
+  const router = useRouter()
+  const {isAuth, isLoading} = useAppSelector(state => state.authReducer)
 
-  return (
+  useEffect(() => {
+    if (!isAuth && !isLoading) {
+      router.push('/login')
+    }
+  }, [isAuth, router, isLoading])
+
+  return isAuth ? (
     <>
       <MetaHead />
-
-      {isAuth ? (
-        <BaseLayout>
-          <StyledMainContentWrapper>
-            <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Моя Панель</Typography>
-            <EmptyContainer />
-          </StyledMainContentWrapper>
-        </BaseLayout>
-      ) : (
-        <Typography textSize={3} textColor={COLORS.accent}>LANDING PAGE</Typography>
-      )}
+      <BaseLayout>
+        <StyledMainContentWrapper>
+          <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Моя Панель</Typography>
+          <EmptyContainer />
+        </StyledMainContentWrapper>
+      </BaseLayout>
     </>
-  )
+  ) : <GlobalLoader />
 }
 
 

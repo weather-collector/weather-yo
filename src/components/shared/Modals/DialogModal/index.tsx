@@ -12,30 +12,25 @@ type DialogModalProps = {
 }
 
 const DialogModal = ({children, trigger, title, description}: DialogModalProps) => {
-  // const [container, setContainer] = useState<HTMLDivElement | null>(null)
-
   return (
-    <>
-      <Styles.CustomRoot>
-        <Styles.CustomTrigger>
-          {trigger}
-        </Styles.CustomTrigger>
-        <Dialog.Portal>
-          <Styles.CustomOverlay />
-          <Styles.CustomContent>
-            <Dialog.Title>{title}</Dialog.Title>
-            <Styles.CustomDescription>{description}</Styles.CustomDescription>
-            {children}
-            <Dialog.Close asChild>
-              <Styles.IconButton>
-                <Cross2Icon />
-              </Styles.IconButton>
-            </Dialog.Close>
-          </Styles.CustomContent>
-        </Dialog.Portal>
-      </Styles.CustomRoot>
-      {/*<div ref={setContainer} />*/}
-    </>
+    <Styles.CustomRoot>
+      <Styles.CustomTrigger>
+        {trigger}
+      </Styles.CustomTrigger>
+      <Dialog.Portal>
+        <Styles.CustomOverlay />
+        <Styles.CustomContent>
+          <Dialog.Title>{title}</Dialog.Title>
+          <Styles.CustomDescription>{description}</Styles.CustomDescription>
+          {children}
+          <Dialog.Close asChild>
+            <Styles.IconButton>
+              <Cross2Icon />
+            </Styles.IconButton>
+          </Dialog.Close>
+        </Styles.CustomContent>
+      </Dialog.Portal>
+    </Styles.CustomRoot>
   )
 }
 

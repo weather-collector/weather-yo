@@ -1,21 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {IWeatherData} from '../../models/IWeatherData'
+import {ReportResponse} from '../../models/response/ReportResponse'
 
 
-interface ReportState {
-  id?: string
-  requestDate?: string
-  requestRange: string
-  latitude: number
-  longitude: number
-  address: string
-  weatherData?: IWeatherData[]
-}
+interface ReportState extends ReportResponse {}
 
 const initialState: ReportState = {
   id: '',
   requestDate: '',
-  requestRange: '',
+  dateRange: '',
   latitude: 0,
   longitude: 0,
   address: '',
@@ -29,7 +21,7 @@ export const reportSlice = createSlice({
     setReportData(state, action: PayloadAction<ReportState>) {
       state.id = action.payload.id
       state.requestDate = action.payload.requestDate
-      state.requestRange = action.payload.requestRange
+      state.dateRange = action.payload.dateRange
       state.latitude = action.payload.latitude
       state.longitude = action.payload.longitude
       state.address = action.payload.address

@@ -21,9 +21,10 @@ type NavItemPros = {
 const NavItem = ({Icon, name, pathName}: NavItemPros) => {
   const router = useRouter()
 
+  console.log(router.pathname.split('/')[1])
   return (
     <Link href={pathName} passHref>
-      <Styles.NavItem isActive={router.pathname === pathName}>
+      <Styles.NavItem isActive={`/${router.pathname.split('/')[1]}` === pathName}>
         <Icon />
         <Typography textSize={1}>{name}</Typography>
       </Styles.NavItem>
@@ -37,6 +38,7 @@ const Menu = () => {
 
   const logoutHandler = () => {
     dispatch(logout())
+    router.push('/login')
   }
 
   return (

@@ -1,13 +1,13 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import authReducer from './reducers/AuthSlice'
-import requestData from './reducers/RequestWeatherSlice'
+import mapFormReducer from './reducers/MapFormSlice'
 import interfaceReducer from './reducers/InterfaceSlice'
 import reportReducer from './reducers/ReportSlice'
 
 
 const rootReducers = combineReducers({
   authReducer,
-  requestData,
+  mapFormReducer,
   interfaceReducer,
   reportReducer,
 })
