@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import {Provider} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'antd/dist/antd.css'
 import {useAppDispatch} from '../src/hooks/redux'
 import {checkAuth} from '../src/store/reducers/ActionCreators/authActions'
 

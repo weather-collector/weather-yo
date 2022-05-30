@@ -36,8 +36,12 @@ const Menu = () => {
   const router = useRouter()
 
   const logoutHandler = () => {
-    dispatch(logout())
-    router.push('/login')
+    const isSuccessPromise = dispatch(logout())
+    isSuccessPromise.then(isSuccess => {
+      if (isSuccess) {
+        router.push('/login')
+      }
+    })
   }
 
   return (

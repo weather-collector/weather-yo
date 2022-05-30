@@ -34,8 +34,6 @@ export const withProtected = (WrappedComponent: any) => {
     const router = useRouter()
     const {isAuth, isLoading} = useAppSelector(state => state.authReducer)
 
-    console.log(isLoading)
-    // @ts-ignore
     useEffect(() => {
       if (!isAuth && !isLoading) {
         router.push('/login')

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic"
 import type {NextPage} from 'next'
 import React from 'react'
 import styled from 'styled-components'
-import RequestDataForm from '../src/components/analyzePage/RequestWeatherForm'
+import RequestWeatherForm from '../src/components/analyzePage/RequestWeatherForm'
 import BaseLayout from '../src/components/layouts/BaseLayout'
 import {useAppSelector} from '../src/hooks/redux'
 import {withProtected} from '../src/routesProtection'
@@ -27,7 +27,7 @@ const Analyze: NextPage = () => {
     <BaseLayout>
       <StyledMainContentWrapper>
         {isLoading && <InterfaceLoader />}
-        <RequestDataForm />
+        <RequestWeatherForm />
         <LeafletMap />
       </StyledMainContentWrapper>
     </BaseLayout>
