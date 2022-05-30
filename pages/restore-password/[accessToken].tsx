@@ -5,21 +5,15 @@ import RestorePassForm from '../../src/components/forms/RestorePassForm'
 import AuthLayout from '../../src/components/layouts/AuthLayout'
 import MetaHead from '../../src/components/shared/MetaHead'
 import Typography from '../../src/components/shared/Typography'
-import {useAppSelector} from '../../src/hooks/redux'
+import {withPublic} from '../../src/routesProtection'
 import {COLORS} from '../../src/styles/theme'
 
 
 const RestorePassword: NextPage = () => {
   const router = useRouter()
-  const {isAuth} = useAppSelector(state => state.authReducer)
-
   const token: string | undefined = router.query.accessToken as string
 
-  if (isAuth) {
-    router.push('/')
-  }
-
-  return !isAuth ? (
+  return (
     <>
       <MetaHead
         title={'Відновлення доступу'}
@@ -31,7 +25,7 @@ const RestorePassword: NextPage = () => {
         <RestorePassForm token={token} />
       </AuthLayout>
     </>
-  ) : null
+  )
 }
 
-export default RestorePassword
+export default withPublic(RestorePassword)

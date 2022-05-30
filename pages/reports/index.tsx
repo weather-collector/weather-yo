@@ -1,17 +1,16 @@
 import type {NextPage} from 'next'
-import {useRouter} from 'next/router'
-import {useEffect, useState} from 'react'
+import dynamic from 'next/dynamic'
 import styled from 'styled-components'
 import BaseLayout from '../../src/components/layouts/BaseLayout'
 import CustomTable from '../../src/components/reportsPage/Table'
-import GlobalLoader from '../../src/components/shared/Loaders/GlobalLoader'
 import Typography from '../../src/components/shared/Typography'
-import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
-import $api from '../../src/http'
-import {ReportResponse} from '../../src/models/response/ReportResponse'
-import {interfaceSlice} from '../../src/store/reducers/InterfaceSlice'
+import {useReports} from '../../src/hooks/reports/useReports'
+import {withProtected} from '../../src/routesProtection'
 import {COLORS} from '../../src/styles/theme'
 
+const InterfaceLoader = dynamic(() => import("../../src/components/shared/Loaders/InterfaceLoader"), {
+  ssr: false,
+})
 
 const StyledMainContentWrapper = styled.div`
   width: 100%;
@@ -27,71 +26,55 @@ const StyledMainContentWrapper = styled.div`
 const tableHeaders = [
   {
     headerName: '№',
-    valueKey: ''
+    valueKey: '',
   },
   {
     headerName: 'Дата формування',
-    valueKey: 'requestDate'
+    valueKey: 'requestDate',
   },
   {
     headerName: 'Адреса',
-    valueKey: 'address'
+    valueKey: 'address',
   },
   {
     headerName: 'Широта',
-    valueKey: 'latitude'
+    valueKey: 'latitude',
   },
   {
     headerName: 'Довгота',
-    valueKey: 'longitude'
+    valueKey: 'longitude',
   },
   {
     headerName: 'Проміжок часу',
-    valueKey: 'dateRange'
+    valueKey: 'dateRange',
   },
   {
     headerName: '',
-    valueKey: 'id'
+    valueKey: 'id',
   },
   {
     headerName: 'Переглянути',
-    valueKey: 'id'
-  }
+    valueKey: 'id',
+  },
 ]
 
 const Reports: NextPage = () => {
-  const router = useRouter()
-  const dispatch = useAppDispatch()
-  const {isAuth, isLoading} = useAppSelector(state => state.authReducer)
-  const [reports, setReports] = useState<ReportResponse[]>([])
+  const {reports, isLoading: isReportLoading} = useReports()
 
-  useEffect(() => {
-    if (!isAuth && !isLoading) {
-      router.push('/login')
-    }
-  }, [isAuth, router, isLoading])
-
-  // USE SWR
-  useEffect(() => {
-    dispatch(interfaceSlice.actions.loading(true))
-    $api.get<ReportResponse[]>(`/reports`)
-      .then(response => setReports(response.data))
-      .catch(error => console.log(error))
-      .finally(() => dispatch(interfaceSlice.actions.loading(false)))
-  }, [])
-
-
-  return isAuth ? (
+  return (
     <BaseLayout>
       <StyledMainContentWrapper>
+        {isReportLoading && <InterfaceLoader />}
         <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Сформовані звіти</Typography>
-        <CustomTable
-          headerRowNames={tableHeaders}
-          dataRows={reports}
-        />
+        {reports && (
+          <CustomTable
+            headerRowNames={tableHeaders}
+            dataRows={reports}
+          />
+        )}
       </StyledMainContentWrapper>
     </BaseLayout>
-  ) : <GlobalLoader />
+  )
 }
 
-export default Reports
+export default withProtected(Reports)

@@ -6,6 +6,7 @@ import BaseLayout from '../../src/components/layouts/BaseLayout'
 import GlobalLoader from '../../src/components/shared/Loaders/GlobalLoader'
 import Typography from '../../src/components/shared/Typography'
 import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
+import {withProtected} from '../../src/routesProtection'
 import {getSingleReport} from '../../src/store/reducers/ActionCreators/reportActions'
 
 
@@ -16,13 +17,6 @@ const StyledMainContentWrapper = styled.div`
 const ReportPage: NextPage = () => {
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const {isAuth, isLoading} = useAppSelector(state => state.authReducer)
-
-  useEffect(() => {
-    if (!isAuth && !isLoading) {
-      router.push('/login')
-    }
-  }, [isAuth, router, isLoading])
 
   useEffect(() => {
     if (router.query.report) {
@@ -30,14 +24,14 @@ const ReportPage: NextPage = () => {
     }
   }, [router.query.report])
 
-  return isAuth ? (
+  return (
     <BaseLayout>
       <StyledMainContentWrapper>
         <Typography textSize={3} textColor={'#000'}>REPORT PAGE</Typography>
       </StyledMainContentWrapper>
     </BaseLayout>
-  ) : <GlobalLoader />
+  )
 }
 
 
-export default ReportPage
+export default withProtected(ReportPage)

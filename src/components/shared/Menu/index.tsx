@@ -21,7 +21,6 @@ type NavItemPros = {
 const NavItem = ({Icon, name, pathName}: NavItemPros) => {
   const router = useRouter()
 
-  console.log(router.pathname.split('/')[1])
   return (
     <Link href={pathName} passHref>
       <Styles.NavItem isActive={`/${router.pathname.split('/')[1]}` === pathName}>

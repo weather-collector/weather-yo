@@ -1,5 +1,4 @@
 import axios, {AxiosError} from 'axios'
-import {toast} from 'react-toastify'
 import {AuthResponse} from '../models/response/AuthResponse'
 
 
@@ -7,7 +6,6 @@ const $api = axios.create({
   withCredentials: true,
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
 })
-
 
 $api.interceptors.request.use((config) => {
   if (config.headers) {
@@ -24,14 +22,13 @@ $api.interceptors.response.use((config) => {
     originalRequest._isRetry = true
     try {
       const response = await axios.get<AuthResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/refresh`, {
-        withCredentials: true
+        withCredentials: true,
       })
       localStorage.setItem('token', response.data.accessToken)
       return $api.request(originalRequest)
     } catch (error) {
       if (error instanceof AxiosError) {
-        document.location.replace(process.env.NEXT_PUBLIC_CLIENT_URL!)
-        console.log(error.response?.data?.message)
+        localStorage.removeItem('token')
       }
     }
   }

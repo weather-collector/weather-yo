@@ -1,27 +1,15 @@
 import {NextPage} from 'next'
-import {useRouter} from 'next/router'
-import React, {useEffect} from 'react'
+import React from 'react'
 import RegisterForm from '../src/components/forms/RegisterForm'
 import AuthLayout from '../src/components/layouts/AuthLayout'
-import GlobalLoader from '../src/components/shared/Loaders/GlobalLoader'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {useAppSelector} from '../src/hooks/redux'
+import {withPublic} from '../src/routesProtection'
 import {COLORS} from '../src/styles/theme'
 
 
 const Register: NextPage = () => {
-  const router = useRouter()
-  const {isAuth} = useAppSelector(state => state.authReducer)
-
-  useEffect(() => {
-    if (isAuth) {
-      router.push('/')
-    }
-  }, [isAuth, router])
-
-
-  return !isAuth ? (
+  return (
     <>
       <MetaHead
         title={'Реєстрація'}
@@ -33,7 +21,7 @@ const Register: NextPage = () => {
         <RegisterForm />
       </AuthLayout>
     </>
-  ) : <GlobalLoader />
+  )
 }
 
-export default Register
+export default withPublic(Register)

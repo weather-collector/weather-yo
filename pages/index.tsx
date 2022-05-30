@@ -1,13 +1,10 @@
 import type {NextPage} from 'next'
-import {useRouter} from 'next/router'
-import {useEffect} from 'react'
 import styled from 'styled-components'
 import EmptyContainer from '../src/components/homePage/EmptyContainer'
 import BaseLayout from '../src/components/layouts/BaseLayout'
-import GlobalLoader from '../src/components/shared/Loaders/GlobalLoader'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {useAppSelector} from '../src/hooks/redux'
+import {withProtected} from '../src/routesProtection'
 import {COLORS} from '../src/styles/theme'
 
 
@@ -25,16 +22,7 @@ const StyledMainContentWrapper = styled.div`
 `
 
 const Home: NextPage = () => {
-  const router = useRouter()
-  const {isAuth, isLoading} = useAppSelector(state => state.authReducer)
-
-  useEffect(() => {
-    if (!isAuth && !isLoading) {
-      router.push('/login')
-    }
-  }, [isAuth, router, isLoading])
-
-  return isAuth ? (
+  return (
     <>
       <MetaHead />
       <BaseLayout>
@@ -44,8 +32,8 @@ const Home: NextPage = () => {
         </StyledMainContentWrapper>
       </BaseLayout>
     </>
-  ) : <GlobalLoader />
+  )
 }
 
 
-export default Home
+export default withProtected(Home)
