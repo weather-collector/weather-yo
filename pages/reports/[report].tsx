@@ -6,9 +6,7 @@ import styled from 'styled-components'
 import BaseLayout from '../../src/components/layouts/BaseLayout'
 import ReportHeader from '../../src/components/reportsPage/ReportHeader'
 import ReportTab from '../../src/components/reportsPage/Tab'
-import Typography from '../../src/components/shared/Typography'
 import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
-import {withProtected} from '../../src/routesProtection'
 import {getSingleReport} from '../../src/store/reducers/ActionCreators/reportActions'
 
 const InterfaceLoader = dynamic(() => import("../../src/components/shared/Loaders/InterfaceLoader"), {
@@ -43,4 +41,4 @@ const ReportPage: NextPage = () => {
 }
 
 
-export default withProtected(ReportPage)
+export default ReportPage

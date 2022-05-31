@@ -1,9 +1,7 @@
 import type {NextPage} from 'next'
-import {useRouter} from 'next/router'
 import styled from 'styled-components'
 import BaseLayout from '../src/components/layouts/BaseLayout'
 import Typography from '../src/components/shared/Typography'
-import {withProtected} from '../src/routesProtection'
 
 
 const StyledMainContentWrapper = styled.div`
@@ -21,4 +19,4 @@ const Settings: NextPage = () => {
 }
 
 
-export default withProtected(Settings)
+export default Settings

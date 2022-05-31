@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import RequestWeatherForm from '../src/components/analyzePage/RequestWeatherForm'
 import BaseLayout from '../src/components/layouts/BaseLayout'
 import {useAppSelector} from '../src/hooks/redux'
-import {withProtected} from '../src/routesProtection'
 
 
 const LeafletMap = dynamic(() => import("../src/components/analyzePage/Map"), {
@@ -35,4 +34,4 @@ const Analyze: NextPage = () => {
 }
 
 
-export default withProtected(Analyze)
+export default Analyze

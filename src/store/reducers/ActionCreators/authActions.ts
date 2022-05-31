@@ -57,7 +57,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
 }
 
 export const checkAuth = () => async (dispatch: AppDispatch) => {
-  console.log('checkAuth')
+  dispatch(authSlice.actions.loading(true))
   try {
     if (localStorage.getItem('token')) {
       const response = await axios.get<AuthResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/refresh`, {

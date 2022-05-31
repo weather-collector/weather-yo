@@ -4,7 +4,6 @@ import RegisterForm from '../src/components/forms/RegisterForm'
 import AuthLayout from '../src/components/layouts/AuthLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {withPublic} from '../src/routesProtection'
 import {COLORS} from '../src/styles/theme'
 
 
@@ -24,4 +23,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default withPublic(Register)
+export default Register

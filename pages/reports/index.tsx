@@ -5,7 +5,6 @@ import BaseLayout from '../../src/components/layouts/BaseLayout'
 import AntdTable from '../../src/components/reportsPage/ReportsTable'
 import Typography from '../../src/components/shared/Typography'
 import {useReports} from '../../src/hooks/reports/useReports'
-import {withProtected} from '../../src/routesProtection'
 import {COLORS} from '../../src/styles/theme'
 
 
@@ -41,4 +40,4 @@ const Reports: NextPage = () => {
   )
 }
 
-export default withProtected(Reports)
+export default Reports

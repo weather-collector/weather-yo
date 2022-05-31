@@ -5,7 +5,6 @@ import RestorePassForm from '../../src/components/forms/RestorePassForm'
 import AuthLayout from '../../src/components/layouts/AuthLayout'
 import MetaHead from '../../src/components/shared/MetaHead'
 import Typography from '../../src/components/shared/Typography'
-import {withPublic} from '../../src/routesProtection'
 import {COLORS} from '../../src/styles/theme'
 
 
@@ -28,4 +27,4 @@ const RestorePassword: NextPage = () => {
   )
 }
 
-export default withPublic(RestorePassword)
+export default RestorePassword

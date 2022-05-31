@@ -4,7 +4,6 @@ import LoginForm from '../src/components/forms/LoginForm'
 import AuthLayout from '../src/components/layouts/AuthLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {withPublic} from '../src/routesProtection'
 import {COLORS} from '../src/styles/theme'
 
 
@@ -25,5 +24,5 @@ const Login: NextPage = () => {
 }
 
 
-export default withPublic(Login)
+export default Login
 

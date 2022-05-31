@@ -4,7 +4,6 @@ import EmptyContainer from '../src/components/homePage/EmptyContainer'
 import BaseLayout from '../src/components/layouts/BaseLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
-import {withProtected} from '../src/routesProtection'
 import {COLORS} from '../src/styles/theme'
 
 
@@ -36,4 +35,4 @@ const Home: NextPage = () => {
 }
 
 
-export default withProtected(Home)
+export default Home
