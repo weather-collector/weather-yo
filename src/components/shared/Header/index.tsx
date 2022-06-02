@@ -21,9 +21,9 @@ const Header = () => {
         </Styles.LeftPart>
 
         <Styles.RightPart>
-          <Styles.Notification>
-            <BellIcon />
-          </Styles.Notification>
+          {/*<Styles.Notification>*/}
+          {/*  <BellIcon />*/}
+          {/*</Styles.Notification>*/}
           <Link href={'/settings'}>
             <a><AvatarIcon /></a>
           </Link>

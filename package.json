@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.2.6",
+    "@amcharts/amcharts5-fonts": "^5.0.1",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-icons": "^1.1.1",

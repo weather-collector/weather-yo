@@ -1,26 +1,25 @@
-import {Field, Form, Formik, FormikProps} from 'formik'
+import {Formik, FormikProps} from 'formik'
 import React, {useState} from 'react'
-import {COLORS} from '../../../styles/theme'
+import {useAppDispatch} from '../../../hooks/redux'
+import {reportSlice} from '../../../store/reducers/ReportSlice'
 import CheckBox from '../../shared/Checkbox'
-import Typography from '../../shared/Typography'
+import {weatherIndicators} from './constants'
 import * as Styles from './styles'
 
-
-import Icon from '../../../assets/images/File.svg'
 
 interface ValuePickerForm {
   checkedValues: string[]
 }
 
 const ValuePicker = () => {
-  const [checkedElements, setCheckedElements] = useState<string[]>()
+  const dispatch = useAppDispatch()
   const initialValues: ValuePickerForm = {
-    checkedValues: [],
+    checkedValues: weatherIndicators.map(el => el.name),
   }
 
-  console.log(checkedElements)
   const checkBoxesHandler = (values: ValuePickerForm) => {
-    // console.log(values)
+    const activeWeatherIndicators = weatherIndicators.filter((el) => values.checkedValues.includes(el.name))
+    dispatch(reportSlice.actions.setSelectedIndicators(activeWeatherIndicators))
   }
 
   return (
@@ -30,52 +29,24 @@ const ValuePicker = () => {
         onSubmit={(values: ValuePickerForm) => checkBoxesHandler(values)}
       >
         {(formik: FormikProps<ValuePickerForm>) => {
-          console.log(formik.values.checkedValues)
           return (
-            <Form
-              onClick={() => setCheckedElements(formik.values.checkedValues)}
-              // onChange={() => setCheckedElements(formik.values.checkedValues)}
+            <Styles.ValuePickerForm
+              onChange={() => formik.handleSubmit()}
             >
-              <div id="checkbox-group">Показники</div>
-              <div role="group" aria-labelledby="checkbox-group">
-                {/*<CheckBox*/}
-                {/*  label={'Атмосферний тиск'}*/}
-                {/*  error={false}*/}
-                {/*  name={'checkedValues'}*/}
-                {/*  value={'pressure'}*/}
-                {/*  // isChecked={formik.values.checkedValues.includes('pressure')}*/}
-                {/*/>*/}
-                {/*<CheckBox*/}
-                {/*  label={'Вологість'}*/}
-                {/*  error={false}*/}
-                {/*  name={'checkedValues'}*/}
-                {/*  value={'humidity'}*/}
-                {/*  // isChecked={formik.values.checkedValues.includes('humidity')}*/}
-                {/*/>*/}
-                <label>
-                  <Field type="checkbox" name="checkedValues" value="temp" />
-                  t Повітря
-                </label>
-                <label>
-                  <Field type="checkbox" name="checkedValues" value="pressure" />
-                  Атмосферний тиск
-                </label>
-                <label>
-                  <Field type="checkbox" name="checkedValues" value="humidity" />
-                  Вологість
-                </label>
-              </div>
-            </Form>
-
+              {weatherIndicators.map((el, index) => (
+                <CheckBox
+                  key={index}
+                  label={el.label}
+                  name={'checkedValues'}
+                  value={el.name}
+                  isChecked={formik.values.checkedValues.includes(el.name)}
+                  iconSrc={el.iconSrc}
+                />
+              ))}
+            </Styles.ValuePickerForm>
           )
         }}
       </Formik>
-
-
-      {/*<Styles.Value>*/}
-      {/*  <Styles.Icon><Icon /></Styles.Icon>*/}
-      {/*  <Typography textSize={1} textColor={COLORS.black}>t° Повітря</Typography>*/}
-      {/*</Styles.Value>*/}
     </>
   )
 }

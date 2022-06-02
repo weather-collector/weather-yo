@@ -1,5 +1,6 @@
 import type {NextPage} from 'next'
 import dynamic from 'next/dynamic'
+import React from 'react'
 import styled from 'styled-components'
 import BaseLayout from '../../src/components/layouts/BaseLayout'
 import AntdTable from '../../src/components/reportsPage/ReportsTable'
@@ -16,7 +17,7 @@ const StyledMainContentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
+  position: relative;
   > * {
     padding: 10px;
   }
@@ -24,15 +25,14 @@ const StyledMainContentWrapper = styled.div`
 
 
 const Reports: NextPage = () => {
-  const {reports, isLoading: isReportLoading} = useReports()
+  const {reports, isLoading} = useReports()
 
   return (
     <BaseLayout>
       <StyledMainContentWrapper>
-        {isReportLoading && <InterfaceLoader />}
+        {isLoading && <InterfaceLoader />}
         <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Ваші звіти</Typography>
         {reports && (
-          //@ts-ignore
           <AntdTable reports={reports} />
         )}
       </StyledMainContentWrapper>

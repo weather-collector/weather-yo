@@ -1,12 +1,9 @@
-import axios from 'axios'
 import L, {LeafletMouseEvent} from 'leaflet'
 import React, {useEffect, useState} from 'react'
 import {Marker, TileLayer, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import {toast} from 'react-toastify'
 import {useAppDispatch} from '../../../hooks/redux'
 import {setFromMapToForm} from '../../../store/reducers/ActionCreators/mapFormActions'
-import {mapFormSlice} from '../../../store/reducers/MapFormSlice'
 import * as Styles from './styles'
 
 

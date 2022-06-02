@@ -3,11 +3,13 @@ import {Table} from 'antd'
 import {ReportResponse} from '../../../models/response/ReportResponse'
 import {columns} from './constants'
 
+type ReportsTableProps = {
+  reports: ReportResponse[]
+}
 
-// @ts-ignore
-const ReportsTable = ({reports}: ReportResponse[]) => {
+const ReportsTable = ({reports}: ReportsTableProps) => {
   return (
-    <Table columns={columns} dataSource={reports} />
+    <Table columns={columns} dataSource={reports} rowKey={'id'} />
   )
 }
 

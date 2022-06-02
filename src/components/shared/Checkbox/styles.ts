@@ -7,7 +7,7 @@ export const CheckboxWrapper = styled.div`
   display: flex;
 `
 
-export const CustomCheckbox = styled(Field)<{error: boolean}>`
+export const CustomCheckbox = styled(Field)`
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
@@ -30,9 +30,18 @@ export const Indicator = styled.span<{isChecked: boolean, error: boolean}>`
 `
 
 export const Label = styled.label<{error: boolean}>`
+  cursor: pointer;
   font-size: 14px;
   color: ${props => props.error ? COLORS.error : COLORS.primary};
   user-select: none;
   display: flex;
   gap: 8px;
+  //flex-grow: 1;
+  align-items: center;
+`
+
+export const Icon = styled.span`
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0 5px;
 `

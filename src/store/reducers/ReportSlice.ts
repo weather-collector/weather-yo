@@ -1,8 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {weatherIndicators} from '../../components/reportsPage/ValuePicker/constants'
+import {IWeatherIndicator} from '../../models/IWeatherIndicator'
 import {ReportResponse} from '../../models/response/ReportResponse'
 
 
-interface ReportState extends ReportResponse {}
+interface ReportState extends ReportResponse {
+  selectedIndicators?: IWeatherIndicator[]
+}
 
 const initialState: ReportState = {
   id: '',
@@ -12,6 +16,7 @@ const initialState: ReportState = {
   longitude: 0,
   address: '',
   weatherData: [],
+  selectedIndicators: weatherIndicators
 }
 
 export const reportSlice = createSlice({
@@ -26,6 +31,9 @@ export const reportSlice = createSlice({
       state.longitude = action.payload.longitude
       state.address = action.payload.address
       state.weatherData = action.payload.weatherData
+    },
+    setSelectedIndicators(state, action: PayloadAction<IWeatherIndicator[]>) {
+      state.selectedIndicators = action.payload
     }
   }
 })

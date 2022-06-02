@@ -2,19 +2,10 @@ import {Space} from 'antd'
 import {ColumnsType} from 'antd/lib/table'
 import Link from 'next/link'
 import React from 'react'
+import {ReportResponse} from '../../../models/response/ReportResponse'
 
 
-export interface DataType {
-  key: string
-  requestDate: string
-  address: string
-  latitude: number
-  longitude: number
-  dateRange: string
-  id: string
-}
-
-export const columns: ColumnsType<DataType> = [
+export const columns: ColumnsType<ReportResponse> = [
   {
     title: 'Дата формування',
     dataIndex: 'requestDate',
