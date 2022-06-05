@@ -5,7 +5,8 @@ import {ReportResponse} from '../../models/response/ReportResponse'
 
 
 interface ReportState extends ReportResponse {
-  selectedIndicators?: IWeatherIndicator[]
+  selectedIndicators: IWeatherIndicator[],
+  averagingAmount: number
 }
 
 const initialState: ReportState = {
@@ -16,14 +17,15 @@ const initialState: ReportState = {
   longitude: 0,
   address: '',
   weatherData: [],
-  selectedIndicators: weatherIndicators
+  selectedIndicators: weatherIndicators,
+  averagingAmount: 1,
 }
 
 export const reportSlice = createSlice({
   name: 'report',
   initialState,
   reducers: {
-    setReportData(state, action: PayloadAction<ReportState>) {
+    setReportData(state, action: PayloadAction<ReportResponse>) {
       state.id = action.payload.id
       state.requestDate = action.payload.requestDate
       state.dateRange = action.payload.dateRange
@@ -34,8 +36,11 @@ export const reportSlice = createSlice({
     },
     setSelectedIndicators(state, action: PayloadAction<IWeatherIndicator[]>) {
       state.selectedIndicators = action.payload
+    },
+    setAveragingAmount(state, action: PayloadAction<number>) {
+      state.averagingAmount = action.payload
     }
-  }
+  },
 })
 
 export default reportSlice.reducer

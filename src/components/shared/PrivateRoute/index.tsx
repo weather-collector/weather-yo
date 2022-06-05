@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic'
 import {useEffect} from 'react'
 import {useRouter} from 'next/router'
-import {useAppSelector} from '../../hooks/redux'
+import {useAppSelector} from '../../../hooks/redux'
 
 
-const GlobalLoader = dynamic(() => import("../../components/shared/Loaders/GlobalLoader"), {
+const GlobalLoader = dynamic(() => import("../Loaders/GlobalLoader"), {
   ssr: false,
 })
 

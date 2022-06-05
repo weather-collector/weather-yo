@@ -11,7 +11,7 @@ export interface IWeatherData {
   winddir: number,
   pressure: number,
   cloudcover: number,
-  solarradiation: number | null,
-  solarenergy: number | null,
-  uvindex: number | null
+  // solarradiation: number | null,
+  // solarenergy: number | null,
+  // uvindex: number | null
 }

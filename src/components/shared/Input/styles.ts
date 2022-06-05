@@ -46,7 +46,7 @@ export const DateShorthands = styled.div`
   width: 100%;
   height: 38px;
   display: flex;
-  border: 1px solid ${COLORS.accent};
+  border: 2px solid ${COLORS.accent};
   justify-content: space-between;
   border-radius: 4px;
   margin-top: 4px;
@@ -73,7 +73,7 @@ export const DateShorthandButton = styled.button`
 
 export const Divider = styled.span`
   width: 2px;
-  background-color: ${COLORS.black};
+  background-color: ${COLORS.accent};
 `
 
 export const DatePickerWrapper = styled.div`

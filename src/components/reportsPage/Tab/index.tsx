@@ -1,33 +1,40 @@
 import dynamic from 'next/dynamic'
-import React from 'react'
+import React, {useState} from 'react'
 import {Tabs} from 'antd'
+import {useAppSelector} from '../../../hooks/redux'
+import {useChartData} from '../../../hooks/reports/chartData'
+import Analytics from '../Analytics'
 import ValuePicker from '../ValuePicker'
 import WeatherTable from '../WeatherTable'
 import * as Styles from './styles'
 
 
-const WeatherChart = dynamic(() => import('../../charts/WeatherChart'), {ssr: false})
+const LineChart = dynamic(() => import('../../charts/LineChart'), {ssr: false})
 const {TabPane} = Tabs
 
 
 const ReportTab = () => {
-  const onChange = (key: string) => {
-    // console.log(key)
+  const {averagingAmount} = useAppSelector(state => state.reportReducer)
+  const {resultChartData} = useChartData(averagingAmount)
+  const [activeTab, setActiveTab] = useState<string>('1')
+
+  const onChangeTab = (key: string) => {
+    setActiveTab(key)
   }
 
   return (
     <Tabs
       defaultActiveKey={'1'}
-      onChange={onChange}
       type="card"
       size={'large'}
     >
       <TabPane tab="Загальні показники" key="1">
         <Styles.GeneralData>
-          <ValuePicker />
+          <ValuePicker activeTab={activeTab} />
           <div style={{width: '100%'}}>
             <Tabs
               defaultActiveKey={'1'}
+              onChange={onChangeTab}
               type={'card'}
               size={'large'}
             >
@@ -35,7 +42,7 @@ const ReportTab = () => {
                 <WeatherTable />
               </TabPane>
               <TabPane tab="Графік" key="2">
-                <WeatherChart />
+                <LineChart id={'weatherIndicatorsChart'} data={resultChartData} daysAmount={averagingAmount}/>
               </TabPane>
             </Tabs>
           </div>
@@ -44,7 +51,9 @@ const ReportTab = () => {
       </TabPane>
 
       <TabPane tab="Аналітика" key="2">
-        Content of Tab Pane 2
+        <Styles.GeneralData>
+          <Analytics />
+        </Styles.GeneralData>
       </TabPane>
     </Tabs>
   )

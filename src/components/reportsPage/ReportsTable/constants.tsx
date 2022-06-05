@@ -42,7 +42,7 @@ export const columns: ColumnsType<ReportResponse> = [
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <a>Delete</a>
+        <a>Видалити</a>
       </Space>
     ),
   },
