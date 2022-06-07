@@ -32,7 +32,7 @@ const GatherSchema = Yup.object().shape({
 const RequestWeatherForm = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const {locationName, latitude, longitude} = useAppSelector(state => state.mapFormReducer)
+  const {locationName, latitude, longitude, dateRange} = useAppSelector(state => state.mapFormReducer)
 
   const [modalCounter, setModalCounter] = useState<number>(0)
   const [reportId, setReportId] = useState<string>('')
@@ -45,7 +45,7 @@ const RequestWeatherForm = () => {
     locationName: locationName,
     latitude: latitude,
     longitude: longitude,
-    dateRange: `${convertDateToString(subDays(new Date(), 14))} - ${convertDateToString(subDays(new Date(), 5))}`,
+    dateRange: dateRange,
   }
 
   const sendRequestHandler = (values: GatherFormValues) => {

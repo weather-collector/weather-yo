@@ -4,6 +4,8 @@ import {useField, useFormikContext} from "formik"
 import DatePicker, {registerLocale} from "react-datepicker"
 import uk from 'date-fns/locale/uk'
 import "react-datepicker/dist/react-datepicker.css"
+import {useAppDispatch} from '../../../hooks/redux'
+import {mapFormSlice} from '../../../store/reducers/MapFormSlice'
 import {convertDateToString} from '../../../utils/dateConverters'
 import * as Styles from './styles'
 
@@ -20,15 +22,17 @@ interface DatepickerProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const DatePickerField = ({name, label, error, caption = '', width, placeholder, ...rest}: DatepickerProps) => {
+  const dispatch = useAppDispatch()
   const {setFieldValue} = useFormikContext()
   const [field] = useField(name)
 
-  const [startDate, setStartDate] = useState<Date | null>(subDays(new Date(), 14))
-  const [endDate, setEndDate] = useState<Date | null>(subDays(new Date(), 5))
+  const [startDate, setStartDate] = useState<Date | null>(subDays(new Date(), 15))
+  const [endDate, setEndDate] = useState<Date | null>(subDays(new Date(), 6))
 
   const onChangeHandler = (dates: Array<Date>) => {
     const [from, to] = dates.map(date => convertDateToString(date))
     setFieldValue(field.name, `${from} - ${to}`)
+    dispatch(mapFormSlice.actions.setMapFormDateRange(`${from} - ${to}`))
 
     const [start, end] = dates
     setStartDate(start)
@@ -45,7 +49,7 @@ const DatePickerField = ({name, label, error, caption = '', width, placeholder, 
           selectsRange
           startDate={startDate}
           endDate={endDate}
-          maxDate={subDays(new Date(), 5)}
+          maxDate={subDays(new Date(), 6)}
           locale={'uk'}
           error={`${error}`}
           id={name}
@@ -75,11 +79,15 @@ type datepickerShorthandsProps = {
 }
 
 const DatepickerShorthands = ({setStartDate, setEndDate, setFieldValue, fieldName}: datepickerShorthandsProps) => {
+  const dispatch = useAppDispatch()
 
   const setDatesHandler = (period: number) => {
-    setStartDate(subDays(new Date(), period + 4))
-    setEndDate(subDays(new Date(), 4))
-    setFieldValue(fieldName, `${convertDateToString(subDays(new Date(), period + 4))} - ${convertDateToString(subDays(new Date(), 4))}`)
+    const filedValue = `${convertDateToString(subDays(new Date(), period + 5))} - ${convertDateToString(subDays(new Date(), 6))}`
+
+    setStartDate(subDays(new Date(), period + 5))
+    setEndDate(subDays(new Date(), 6))
+    setFieldValue(fieldName, filedValue)
+    dispatch(mapFormSlice.actions.setMapFormDateRange(filedValue))
   }
 
   return (

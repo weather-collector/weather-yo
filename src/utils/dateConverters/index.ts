@@ -1,3 +1,6 @@
+import {subDays} from 'date-fns'
+
+
 export function convertDateToString(date: Date) {
   if (date) {
     let year = date.getFullYear()
@@ -10,3 +13,5 @@ export function convertDateToString(date: Date) {
   }
   return ''
 }
+
+export const baseDateRange = `${convertDateToString(subDays(new Date(), 15))} - ${convertDateToString(subDays(new Date(), 6))}`

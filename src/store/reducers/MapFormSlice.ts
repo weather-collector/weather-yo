@@ -1,18 +1,19 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {baseDateRange} from '../../utils/dateConverters'
 
 
 interface MapFormState {
   locationName: string
   latitude: number
   longitude: number
-  dateRange?: string
+  dateRange: string
 }
 
 const initialState: MapFormState = {
   locationName: '',
   latitude: 0,
   longitude: 0,
-  dateRange: '',
+  dateRange: baseDateRange,
 }
 
 export const mapFormSlice = createSlice({
@@ -23,7 +24,9 @@ export const mapFormSlice = createSlice({
       state.locationName = action.payload.locationName
       state.latitude = action.payload.latitude
       state.longitude = action.payload.longitude
-      state.dateRange = action.payload.dateRange
+    },
+    setMapFormDateRange(state, action: PayloadAction<string>) {
+      state.dateRange = action.payload
     }
   }
 })

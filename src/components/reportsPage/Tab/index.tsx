@@ -10,12 +10,25 @@ import * as Styles from './styles'
 
 
 const LineChart = dynamic(() => import('../../charts/LineChart'), {ssr: false})
+const BarChart = dynamic(() => import('../../charts/BarChart'), {ssr: false})
+const PolarChart = dynamic(() => import('../../charts/PolarChart'), {ssr: false})
 const {TabPane} = Tabs
+
+const DisplayCorrectChart = () => {
+  const {averagingAmount, selectedIndicators} = useAppSelector(state => state.reportReducer)
+  const {resultChartData} = useChartData(averagingAmount)
+
+  if (selectedIndicators[0].name === 'precip') {
+    return <BarChart id={'precipBarChart'} data={resultChartData} daysAmount={averagingAmount} />
+  }
+  if (selectedIndicators[0].name === 'winddir') {
+    return <PolarChart id={'windDirRoseChart'} />
+  }
+  return <LineChart id={'weatherIndicatorsChart'} data={resultChartData} daysAmount={averagingAmount} />
+}
 
 
 const ReportTab = () => {
-  const {averagingAmount} = useAppSelector(state => state.reportReducer)
-  const {resultChartData} = useChartData(averagingAmount)
   const [activeTab, setActiveTab] = useState<string>('1')
 
   const onChangeTab = (key: string) => {
@@ -42,7 +55,7 @@ const ReportTab = () => {
                 <WeatherTable />
               </TabPane>
               <TabPane tab="Графік" key="2">
-                <LineChart id={'weatherIndicatorsChart'} data={resultChartData} daysAmount={averagingAmount}/>
+                <DisplayCorrectChart />
               </TabPane>
             </Tabs>
           </div>

@@ -8,7 +8,6 @@ import * as Styles from '../styles'
 
 
 const LineChart = ({id, data, daysAmount}: IChart) => {
-  console.log(data)
 
   useEffect(() => {
     let root = am5.Root.new(id)
@@ -21,7 +20,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
 
     root.dateFormatter.setAll({
       dateFormat: "dd-mm-yyyy",
-      dateFields: ["dateTime"],
+      dateFields: ["dateOfTime"],
     })
 
     root.setThemes([
@@ -29,7 +28,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
     ])
 
     let chart = root.container.children.push(am5xy.XYChart.new(root, {
-      panX: true,
+      panX: false,
       panY: false,
       wheelX: "panY",
       wheelY: "zoomX",
@@ -41,16 +40,20 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
     }))
     cursor.lineY.set("visible", false)
 
-    let xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+    let xAxis = chart.xAxes.push(am5xy.GaplessDateAxis.new(root, {
       maxDeviation: 0,
       baseInterval: {timeUnit: "day", count: daysAmount},
+      gridIntervals: [
+        {timeUnit: "day", count: 1},
+        {timeUnit: "month", count: 1},
+      ],
       renderer: am5xy.AxisRendererX.new(root, {pan: "zoom"}),
       tooltip: am5.Tooltip.new(root, {}),
-      // end: 0.5,
     }))
 
     let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
       maxDeviation: 0,
+      extraMax: 0.1,
       renderer: am5xy.AxisRendererY.new(root, {pan: "zoom"}),
     }))
 
@@ -60,19 +63,27 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
         xAxis: xAxis,
         yAxis: yAxis,
         valueYField: "value",
-        valueXField: "dateTime",
+        valueXField: "dateOfTime",
         stroke: root.interfaceColors.get("primaryButton"),
         tooltip: am5.Tooltip.new(root, {
           labelText: `${chartData.label} {valueY}`,
         }),
       }))
 
-      // series.events.once("datavalidated", (ev) => {
-      //   if (chartData.chartData.length > 60) {
-      //     // @ts-ignore
-      //     ev.target.get("xAxis").zoomToDates(new Date(chartData.chartData[0].dateTime), new Date(chartData.chartData[90].dateTime))
-      //   }
-      // })
+      if (daysAmount >= 10) {
+        series.bullets.push(() => {
+          return am5.Bullet.new(root, {
+            locationY: 1,
+            sprite: am5.Label.new(root, {
+              text: "{valueY}",
+              centerY: am5.p100,
+              centerX: am5.p50,
+              populateText: true,
+              fontSize: '14px',
+            }),
+          })
+        })
+      }
 
       series.strokes.template.setAll({
         strokeWidth: 2,
@@ -97,7 +108,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
 
       series.data.processor = am5.DataProcessor.new(root, {
         dateFormat: "dd-mm-yyyy",
-        dateFields: ["dateTime"],
+        dateFields: ["dateOfTime"],
       })
 
       series.data.setAll(chartData.chartData)
@@ -107,7 +118,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
     chart.appear(1000, 100)
 
     return () => root.dispose()
-  }, [data])
+  }, [data, daysAmount, id])
 
   return (
     <Styles.ChartWrapper id={id} />

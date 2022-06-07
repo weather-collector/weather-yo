@@ -15,17 +15,17 @@ export const useChartData = (averagingValue = 1) => {
     let counter = 0
 
     weatherData.forEach((day, index) => {
-      resultValue += day[indicator.name as keyof Omit<IWeatherData, "datetime">]
-      counter++
+        resultValue += day[indicator.name as keyof Omit<IWeatherData, "datetime">]
+        counter++
 
-      if (counter % averagingValue === 0 || weatherData.length === index + 1) {
-        chartData = [...chartData, {
-          dateTime: day.datetime,
-          value: Math.round((resultValue / counter + Number.EPSILON) * 100) / 100,
-        }]
-        counter = 0
-        resultValue = 0
-      }
+        if (counter % averagingValue === 0) {
+          chartData = [...chartData, {
+            dateOfTime: day.datetime,
+            value: indicator.name === 'precip' ? Math.round((resultValue + Number.EPSILON) * 100) / 100 : Math.round((resultValue / counter + Number.EPSILON) * 100) / 100,
+          }]
+          counter = 0
+          resultValue = 0
+        }
     })
 
     let chartObject = {
@@ -50,16 +50,16 @@ export const useTempsData = (callback: typeof getEffectiveTemp | typeof getActiv
   let tempValue = 0
 
   weatherData.forEach((day, index) => {
-    counter++
+      counter++
 
-    if (counter % averagingValue === 0 || weatherData.length === index + 1) {
-      tempValue += callback(weatherData.slice(prevIndex, index).map(el => el.temp), aboveValue)
-      chartData = [...chartData, {
-        dateTime: day.datetime,
-        value: Math.round((tempValue + Number.EPSILON) * 100) / 100,
-      }]
-      prevIndex = index + 1
-    }
+      if (counter % averagingValue === 0) {
+        tempValue += callback(weatherData.slice(prevIndex, index + 1).map(el => el.temp), aboveValue)
+        chartData = [...chartData, {
+          dateOfTime: day.datetime,
+          value: Math.round((tempValue + Number.EPSILON) * 100) / 100,
+        }]
+        prevIndex = index + 1
+      }
   })
 
   let chartObject = {
@@ -84,15 +84,15 @@ export const useGTKData = () => {
   let prevIndex = 0
 
   weatherData.forEach((day, index) => {
-    counter++
+      counter++
 
-    if (counter % averagingValue === 0 || weatherData.length === index + 1) {
-      chartData = [...chartData, {
-        dateTime: day.datetime,
-        value: Math.round((getGTK(weatherData.slice(prevIndex, index)) + Number.EPSILON) * 100) / 100,
-      }]
-      prevIndex = index + 1
-    }
+      if (counter % averagingValue === 0) {
+        chartData = [...chartData, {
+          dateOfTime: day.datetime,
+          value: Math.round((getGTK(weatherData.slice(prevIndex, index + 1)) + Number.EPSILON) * 100) / 100,
+        }]
+        prevIndex = index + 1
+      }
   })
 
   let chartObject = {
@@ -100,8 +100,8 @@ export const useGTKData = () => {
     label: 'ГТК',
     chartData: chartData,
   }
-  //@ts-ignore
-  resultGTKData.push(chartObject)
+
+  resultGTKData.push(<IChartObject>chartObject)
 
   return {resultGTKData}
 }

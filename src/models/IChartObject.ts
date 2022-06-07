@@ -2,7 +2,7 @@ import {IWeatherIndicator} from './IWeatherIndicator'
 
 
 export interface IChartData {
-  dateTime: string,
+  dateOfTime: string,
   value: number
 }
 

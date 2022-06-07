@@ -17,8 +17,6 @@ const Analytics = () => {
   const {resultTempsData: chartEffectiveTemps} = useTempsData(getEffectiveTemp)
   const {resultGTKData} = useGTKData()
 
-  console.log(chartTempsGreaterZero)
-
   const tempArr = weatherData.map(el => el.temp)
   const activeTempGreaterZero = getActiveTemp(tempArr, 0)
   const activeTempGreaterTen = getActiveTemp(tempArr, 10)

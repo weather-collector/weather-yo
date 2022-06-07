@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router'
 import React from 'react'
 import * as Styles from './styles'
 import {COLORS} from '../../../styles/theme'
@@ -9,6 +10,7 @@ import AnalyticsImage from '../../../assets/images/Analytics.svg'
 
 
 const EmptyContainer = () => {
+  const router = useRouter()
   return (
     <Styles.EmptyContentWrapper>
       <Button
@@ -16,6 +18,7 @@ const EmptyContainer = () => {
         hoveredBgColor={COLORS.hoveredSuccessBg}
         activeBgColor={COLORS.activeSuccessBg}
         width={'280px'}
+        onClick={() => router.push('/analyze')}
       >
         <FileIcon />
         <Typography textSize={2} textColor={COLORS.successText} fontWeight={400}>Зібрати дані</Typography>
