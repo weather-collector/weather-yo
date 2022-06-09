@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
+import {useAppSelector} from '../../../hooks/redux'
+import {COLORS} from '../../../styles/theme'
 import BaseContainer from '../BaseContainer'
+import Typography from '../Typography'
 import * as Styles from './styles'
 
 import Logo from '../../../assets/images/logo.svg'
@@ -9,6 +12,8 @@ import AvatarIcon from '../../../assets/images/AvatarIcon.svg'
 
 
 const Header = () => {
+  const {user} = useAppSelector(state => state.authReducer)
+
   return (
     <Styles.Header>
       <BaseContainer fluid={true}>
@@ -24,6 +29,7 @@ const Header = () => {
           {/*<Styles.Notification>*/}
           {/*  <BellIcon />*/}
           {/*</Styles.Notification>*/}
+          <Typography textSize={1} textColor={COLORS.primary}>{user.email}</Typography>
           <Link href={'/settings'}>
             <a><AvatarIcon /></a>
           </Link>

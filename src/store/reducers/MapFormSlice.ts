@@ -20,7 +20,7 @@ export const mapFormSlice = createSlice({
   name: 'mapForm',
   initialState,
   reducers: {
-    setMapFormData(state, action: PayloadAction<MapFormState>) {
+    setMapFormData(state, action: PayloadAction<Omit<MapFormState, 'dateRange'>>) {
       state.locationName = action.payload.locationName
       state.latitude = action.payload.latitude
       state.longitude = action.payload.longitude

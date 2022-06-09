@@ -4,20 +4,20 @@ import {COLORS} from '../../../styles/theme'
 
 
 const overlayShow = keyframes`
-  0% {
-    opacity: 0
+  from {
+    opacity: 0;
   }
-  100% {
-    opacity: 0.5
+  to {
+    opacity: 0.5;
   }
 `
 
 const contentShow = keyframes`
-  0% {
+  from {
     opacity: 0;
     transform: translate(-50%, -48%) scale(.96);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
@@ -32,7 +32,7 @@ export const CustomOverlay = styled(Overlay)`
   position: fixed;
   inset: 0;
   @media (prefers-reduced-motion: no-preference) {
-    animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: ${overlayShow} 150ms ease-in-out forwards;
   };
 `
 

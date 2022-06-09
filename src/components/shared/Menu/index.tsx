@@ -33,15 +33,9 @@ const NavItem = ({Icon, name, pathName}: NavItemPros) => {
 
 const Menu = () => {
   const dispatch = useAppDispatch()
-  const router = useRouter()
 
   const logoutHandler = () => {
-    const isSuccessPromise = dispatch(logout())
-    isSuccessPromise.then(isSuccess => {
-      if (isSuccess) {
-        router.push('/login')
-      }
-    })
+    dispatch(logout())
   }
 
   return (

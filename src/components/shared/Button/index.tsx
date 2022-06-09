@@ -11,9 +11,11 @@ type ButtonProps = {
   hoveredBgColor?: string
   activeBgColor?: string
   width?: string
+  id?: string
 }
 
 const Button = ({
+                  id,
                   children,
                   onClick,
                   type = 'submit',
@@ -30,6 +32,7 @@ const Button = ({
       hoveredBgColor={hoveredBgColor}
       activeBgColor={activeBgColor}
       width={width}
+      id={id}
     >
       {children}
     </Styles.Button>

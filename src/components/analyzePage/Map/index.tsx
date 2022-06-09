@@ -1,8 +1,8 @@
 import L, {LeafletMouseEvent} from 'leaflet'
 import React, {useEffect, useState} from 'react'
-import {Marker, TileLayer, useMapEvents} from 'react-leaflet'
+import {Marker, TileLayer, useMap, useMapEvents} from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import {useAppDispatch} from '../../../hooks/redux'
+import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {setFromMapToForm} from '../../../store/reducers/ActionCreators/mapFormActions'
 import * as Styles from './styles'
 
@@ -36,11 +36,14 @@ type LocationMarkerProps = {
   setPosition: (value: PositionProps) => void
 }
 
-function LocationMarker({position, setPosition}: LocationMarkerProps) {
-  const map = useMapEvents({
+const LocationMarker = ({position, setPosition}: LocationMarkerProps) => {
+  const map = useMap()
+  map.flyTo(position)
+
+  const mapEvents = useMapEvents({
     click(event: LeafletMouseEvent) {
       setPosition(event.latlng)
-      map.flyTo(event.latlng, 15)
+      mapEvents.flyTo(event.latlng, 15)
     },
   })
 
@@ -54,7 +57,12 @@ function LocationMarker({position, setPosition}: LocationMarkerProps) {
 
 const LeafletMap = () => {
   const dispatch = useAppDispatch()
+  const {latitude, longitude} = useAppSelector(state => state.mapFormReducer)
   const [position, setPosition] = useState<PositionProps>({lat: 49.59, lng: 34.55})
+
+  useEffect(() => {
+    setPosition({lat: latitude, lng: longitude})
+  }, [latitude, longitude])
 
   useEffect(() => {
     dispatch(setFromMapToForm({

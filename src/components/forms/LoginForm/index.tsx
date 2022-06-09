@@ -1,8 +1,8 @@
 import {Formik, FormikProps} from 'formik'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 import * as Yup from 'yup'
 import React from 'react'
+import {useGoogleAuth} from '../../../hooks/googleAuth'
 import {useAppDispatch} from '../../../hooks/redux'
 import {login} from '../../../store/reducers/ActionCreators/authActions'
 import {COLORS} from '../../../styles/theme'
@@ -12,8 +12,6 @@ import Typography from '../../shared/Typography'
 import EmailForm from '../EmailForm'
 import * as Styles from './styles'
 import Input from '../../shared/Input'
-
-import GoogleIcon from '../../../assets/images/google.svg'
 
 
 interface LoginFormValues {
@@ -31,7 +29,7 @@ const LoginSchema = Yup.object().shape({
 
 const LoginForm = () => {
   const dispatch = useAppDispatch()
-  const router = useRouter()
+  useGoogleAuth()
 
   const initialValues: LoginFormValues = {
     email: '',
@@ -39,12 +37,7 @@ const LoginForm = () => {
   }
 
   const loginHandler = (values: LoginFormValues) => {
-    const isSuccessPromise = dispatch(login(values.email, values.password))
-    isSuccessPromise.then(isSuccess => {
-      if (isSuccess) {
-        router.push('/')
-      }
-    })
+    dispatch(login(values.email, values.password))
   }
 
   return (
@@ -92,19 +85,7 @@ const LoginForm = () => {
                 <Typography textSize={1} textColor={COLORS.whiteText}>Увійти</Typography>
               </Button>
             </Styles.FormWrapper>
-
-            <Button
-              type={'button'}
-              bgColor={COLORS.elementBg}
-              hoveredBgColor={COLORS.hoveredBg}
-              activeBgColor={COLORS.activeBg}
-            >
-              <Typography textSize={'14px'} textColor={COLORS.black}>
-                Увійти за допомогою
-              </Typography>
-              <GoogleIcon />
-            </Button>
-
+            <div id={'google-login'} style={{display: 'flex', justifyContent: 'center'}} />
             <Link href={'/register'}>
               <a>
                 <Button

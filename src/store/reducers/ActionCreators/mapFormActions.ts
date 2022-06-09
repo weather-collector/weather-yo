@@ -12,9 +12,9 @@ type setFromMapToFormProps = {
 
 type setFromFormToMapProps = {
   locationName: string
-  latitude: number
-  longitude: number
-  dateRange: string
+  // latitude: number
+  // longitude: number
+  // dateRange: string
 }
 
 export const setFromMapToForm = ({latitude, longitude}: setFromMapToFormProps) => async (dispatch: AppDispatch) => {
@@ -35,14 +35,14 @@ export const setFromMapToForm = ({latitude, longitude}: setFromMapToFormProps) =
   }
 }
 
-export const setFromFormToMap = ({locationName, latitude, longitude, dateRange}: setFromFormToMapProps) => async (dispatch: AppDispatch) => {
+export const setFromFormToMap = ({locationName}: setFromFormToMapProps) => async (dispatch: AppDispatch) => {
   try {
-    // here will be geocoding stuff
+    const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${locationName}.json?access_token=${process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN}`)
+    let coordinates = response.data?.features[0]?.center
+    // @ts-ignore
     dispatch(mapFormSlice.actions.setMapFormData({
-      locationName: locationName,
-      latitude: Math.round(latitude * 100) / 100,
-      longitude: Math.round(longitude * 100) / 100,
-      dateRange: dateRange
+      latitude: Math.round(coordinates[1] * 100) / 100,
+      longitude: Math.round(coordinates[0] * 100) / 100,
     }))
   } catch (error) {
     if (error instanceof AxiosError) {

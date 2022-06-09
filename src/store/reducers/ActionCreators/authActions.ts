@@ -23,17 +23,30 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
   }
 }
 
+export const googleAuth = (token: string) => async (dispatch: AppDispatch) => {
+  dispatch(authSlice.actions.loading(true))
+  try {
+    const response = await $api.post<AuthResponse>(`/google-auth`, {token})
+    dispatch(authSlice.actions.auth(response.data))
+    localStorage.setItem('token', response.data.accessToken)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast(error.response?.data?.message)
+    }
+  } finally {
+    dispatch(authSlice.actions.loading(false))
+  }
+}
+
 export const register = (email: string, password: string) => async (dispatch: AppDispatch) => {
   dispatch(authSlice.actions.loading(true))
   try {
     const response = await $api.post<AuthResponse>(`/registration`, {email, password})
     dispatch(authSlice.actions.auth(response.data))
     localStorage.setItem('token', response.data.accessToken)
-    return true
   } catch (error) {
     if (error instanceof AxiosError) {
       toast(error.response?.data?.message)
-      return false
     }
   } finally {
     dispatch(authSlice.actions.loading(false))
@@ -46,10 +59,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
     const response = await $api.post<AuthResponse>(`/logout`)
     dispatch(authSlice.actions.logout())
     localStorage.removeItem('token')
-    return true
   } catch (error) {
     if (error instanceof AxiosError) {
-      return false
     }
   } finally {
     dispatch(authSlice.actions.loading(false))

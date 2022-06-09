@@ -1,8 +1,8 @@
 import {Formik, FormikProps} from 'formik'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 import * as Yup from 'yup'
 import React from 'react'
+import {useGoogleAuth} from '../../../hooks/googleAuth'
 import {useAppDispatch} from '../../../hooks/redux'
 import {register} from '../../../store/reducers/ActionCreators/authActions'
 import {COLORS} from '../../../styles/theme'
@@ -11,8 +11,6 @@ import CheckBox from '../../shared/Checkbox'
 import Typography from '../../shared/Typography'
 import * as Styles from './styles'
 import Input from '../../shared/Input'
-
-import GoogleIcon from '../../../assets/images/google.svg'
 
 
 interface RegisterFormValues {
@@ -32,7 +30,7 @@ const RegisterSchema = Yup.object().shape({
 
 const RegisterForm = () => {
   const dispatch = useAppDispatch()
-  const router = useRouter()
+  useGoogleAuth()
 
   const initialValues: RegisterFormValues = {
     email: '',
@@ -41,12 +39,7 @@ const RegisterForm = () => {
   }
 
   const registerHandler = (values: RegisterFormValues) => {
-    const isSuccessPromise = dispatch(register(values.email, values.password))
-    isSuccessPromise.then(isSuccess => {
-      if (isSuccess) {
-        router.push('/')
-      }
-    })
+    dispatch(register(values.email, values.password))
   }
 
   return (
@@ -88,19 +81,7 @@ const RegisterForm = () => {
                 <Typography textSize={1} textColor={COLORS.whiteText}>Зареєструватися</Typography>
               </Button>
             </Styles.FormWrapper>
-
-            <Button
-              type={'button'}
-              bgColor={COLORS.elementBg}
-              hoveredBgColor={COLORS.hoveredBg}
-              activeBgColor={COLORS.activeBg}
-            >
-              <Typography textSize={'14px'} textColor={COLORS.black}>
-                Продовжити використовуючи
-              </Typography>
-              <GoogleIcon />
-            </Button>
-
+            <div id={'google-login'} style={{display: 'flex', justifyContent: 'center'}} />
             <Link href={'/login'}>
               <a>
                 <Button

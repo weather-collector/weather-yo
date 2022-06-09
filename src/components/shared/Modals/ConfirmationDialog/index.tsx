@@ -9,7 +9,7 @@ import * as Styles from '../styles'
 
 type ConfirmationDialogProps = {
   trigger?: React.ReactNode
-  onConfirmationCallback: () => void
+  onConfirmationCallback: (value?: any) => void
   title?: string
   description?: string
   counter?: number
@@ -75,7 +75,10 @@ const ConfirmationDialog = ({trigger, onConfirmationCallback, title = '', descri
                 hoveredBgColor={COLORS.hoveredSuccessBg}
                 activeBgColor={COLORS.activeSuccessBg}
                 width={'50%'}
-                onClick={onConfirmationCallback}
+                onClick={() => {
+                  onConfirmationCallback()
+                  setIsOpen(false)
+                }}
               >
                 <Typography
                   textSize={'14px'}

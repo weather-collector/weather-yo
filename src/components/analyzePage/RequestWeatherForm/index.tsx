@@ -1,12 +1,11 @@
-import {subDays} from 'date-fns'
 import {Formik, FormikProps} from 'formik'
 import {useRouter} from 'next/router'
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import * as Yup from 'yup'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
+import {setFromFormToMap} from '../../../store/reducers/ActionCreators/mapFormActions'
 import {generateReport} from '../../../store/reducers/ActionCreators/reportActions'
 import {COLORS} from '../../../styles/theme'
-import {convertDateToString} from '../../../utils/dateConverters'
 import Button from '../../shared/Button'
 import DatePickerField from '../../shared/Input/Datepicker'
 import Input from '../../shared/Input'
@@ -59,6 +58,17 @@ const RequestWeatherForm = () => {
     })
   }
 
+  const timeout = useRef()
+  const mapLocationHandler = (location: string) => {
+    if (location && location.length >= 3) {
+      clearTimeout(timeout.current)
+      // @ts-ignore
+      timeout.current = setTimeout(() => {
+        dispatch(setFromFormToMap({locationName: location}))
+      }, 1500)
+    }
+  }
+
   return (
     <>
       <Formik
@@ -78,6 +88,10 @@ const RequestWeatherForm = () => {
                   error={!!formik.errors.locationName}
                   caption={formik.errors.locationName}
                   width={'220px'}
+                  onChange={(e) => {
+                    formik.handleChange(e)
+                    mapLocationHandler(formik.values.locationName)
+                  }}
                 />
 
                 <Input
