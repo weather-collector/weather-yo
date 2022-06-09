@@ -49,6 +49,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
       ],
       renderer: am5xy.AxisRendererX.new(root, {pan: "zoom"}),
       tooltip: am5.Tooltip.new(root, {}),
+      extraMax: 0.01,
     }))
 
     let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {

@@ -11,12 +11,10 @@ const StyledMainContentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 
   > * {
-    &:nth-child(1) {
-      padding: 10px;
-    }
+    padding: 10px;
   }
 `
 

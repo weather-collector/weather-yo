@@ -10,7 +10,7 @@ const $reportsFetcher = async (url: string) => {
 }
 
 export function useReports() {
-  const {data, error} = useSWR('/reports', $reportsFetcher)
+  const {data, error} = useSWR('/reports', $reportsFetcher, {revalidateOnMount: true})
 
   return {
     reports: data,

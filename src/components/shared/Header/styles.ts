@@ -33,3 +33,9 @@ export const RightPart = styled.div`
 export const Notification = styled.div`
   cursor: pointer;
 `
+
+export const Profile = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`

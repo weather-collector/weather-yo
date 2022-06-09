@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
+import {useSWRConfig} from 'swr'
 import {useAppDispatch} from '../../../hooks/redux'
 import {logout} from '../../../store/reducers/ActionCreators/authActions'
 import Footer from '../Footer'

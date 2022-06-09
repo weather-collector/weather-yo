@@ -29,9 +29,11 @@ const Header = () => {
           {/*<Styles.Notification>*/}
           {/*  <BellIcon />*/}
           {/*</Styles.Notification>*/}
-          <Typography textSize={1} textColor={COLORS.primary}>{user.email}</Typography>
           <Link href={'/settings'}>
-            <a><AvatarIcon /></a>
+            <Styles.Profile>
+              <Typography textSize={1} textColor={COLORS.primary}>{user.email}</Typography>
+              <AvatarIcon />
+            </Styles.Profile>
           </Link>
         </Styles.RightPart>
       </BaseContainer>

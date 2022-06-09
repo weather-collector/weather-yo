@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import styled from 'styled-components'
 import BaseLayout from '../../src/components/layouts/BaseLayout'
-import AntdTable from '../../src/components/reportsPage/ReportsTable'
+import ReportsTable from '../../src/components/reportsPage/ReportsTable'
 import Typography from '../../src/components/shared/Typography'
 import {useReports} from '../../src/hooks/reports/useReports'
 import {COLORS} from '../../src/styles/theme'
@@ -33,7 +33,7 @@ const Reports: NextPage = () => {
         {isLoading && <InterfaceLoader />}
         <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Ваші звіти</Typography>
         {reports && (
-          <AntdTable reports={reports} />
+          <ReportsTable reports={reports} />
         )}
       </StyledMainContentWrapper>
     </BaseLayout>

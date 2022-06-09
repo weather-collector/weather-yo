@@ -1,8 +1,9 @@
-import {ColumnsType} from 'antd/lib/table'
+import {ColumnsType, TablePaginationConfig} from 'antd/lib/table'
 import Link from 'next/link'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Space, Table} from 'antd'
 import {toast} from 'react-toastify'
+import {useSWRConfig} from 'swr'
 import $api from '../../../http'
 import {ReportResponse} from '../../../models/response/ReportResponse'
 import ConfirmationDialog from '../../shared/Modals/ConfirmationDialog'
@@ -10,14 +11,21 @@ import ConfirmationDialog from '../../shared/Modals/ConfirmationDialog'
 
 type ReportsTableProps = {
   reports: ReportResponse[]
+  pagination?: false | TablePaginationConfig | undefined
 }
 
-const ReportsTable = ({reports}: ReportsTableProps) => {
+const ReportsTable = ({reports, pagination}: ReportsTableProps) => {
+  const {mutate} = useSWRConfig()
   const [rows, setRows] = useState(reports)
+
+  useEffect(() => {
+    mutate('/reports').then(newData => setRows(newData))
+  }, [])
 
   const deleteReportHandler = async (reportId: string) => {
     const response = await $api.delete(`/reports/${reportId}`)
-    setRows(reports.filter(report => report.id !== reportId))
+    const newData = await mutate('/reports')
+    setRows(newData)
     toast(response.data.message)
   }
 
@@ -70,7 +78,7 @@ const ReportsTable = ({reports}: ReportsTableProps) => {
   ]
 
   return (
-    <Table columns={columns} dataSource={rows} rowKey={'id'} />
+    <Table pagination={pagination} columns={columns} dataSource={rows} rowKey={'id'} />
   )
 }
 
