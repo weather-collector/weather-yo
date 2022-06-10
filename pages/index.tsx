@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import styled from 'styled-components'
-import EmptyContainer from '../src/components/homePage/EmptyContainer'
+import ContentContainer from '../src/components/homePage/ContentContainer'
 import BaseLayout from '../src/components/layouts/BaseLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
       <BaseLayout>
         <StyledMainContentWrapper>
           <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Моя Панель</Typography>
-          <EmptyContainer />
+          <ContentContainer />
         </StyledMainContentWrapper>
       </BaseLayout>
     </>

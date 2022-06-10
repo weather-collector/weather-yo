@@ -1,7 +1,7 @@
 import * as am5 from "@amcharts/amcharts5"
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import * as am5xy from "@amcharts/amcharts5/xy"
-import React, {useEffect} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {IChart} from '../../../models/IChart'
 import {IChartObject} from '../../../models/IChartObject'
 import * as Styles from '../styles'
@@ -9,7 +9,7 @@ import * as Styles from '../styles'
 
 const LineChart = ({id, data, daysAmount}: IChart) => {
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let root = am5.Root.new(id)
 
     root.interfaceColors.set("grid", am5.color('#11181C'))
@@ -28,7 +28,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
     ])
 
     let chart = root.container.children.push(am5xy.XYChart.new(root, {
-      panX: false,
+      panX: true,
       panY: false,
       wheelX: "panY",
       wheelY: "zoomX",
@@ -116,7 +116,7 @@ const LineChart = ({id, data, daysAmount}: IChart) => {
 
       series.appear(1000)
     })
-    chart.appear(1000, 100)
+    chart.appear(1000, 100).then()
 
     return () => root.dispose()
   }, [data, daysAmount, id])

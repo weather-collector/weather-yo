@@ -27,11 +27,11 @@ export const getEffectiveTemp = (temps: number[], aboveTemp = 5): number => {
 export const getGTK = (weatherData: IWeatherData[]): number => {
   const baseTemp = 10
   let activeTemps = getActiveTemp(weatherData.map(el => el.temp), 10)
-  let percip = 0
+  let precip = 0
 
   weatherData.forEach(el => {
     if (el.temp >= baseTemp) {
-      percip += el.precip
+      precip += el.precip
     }
   })
 
@@ -39,7 +39,7 @@ export const getGTK = (weatherData: IWeatherData[]): number => {
     return 0
   }
 
-  return percip / (0.1 * activeTemps)
+  return precip / (0.1 * activeTemps)
 }
 
 
@@ -64,28 +64,29 @@ export const getWindDirection = (windDirInDegrees: number): string => {
   }
   if (windDirInDegrees >= 293 && windDirInDegrees <= 338) {
     return "Пн-Зах"
-  }
-  if (windDirInDegrees >= 339 || windDirInDegrees <= 22) {
+  } else {
     return "Пн"
   }
-  return ''
+}
+
+
+const emptyTempData = {
+  tempmax: 0,
+  tempmin: 0,
+  temp: 0,
+  dew: 0,
+  humidity: 0,
+  precip: 0,
+  precipcover: 0,
+  windspeed: 0,
+  winddir: 0,
+  pressure: 0,
+  cloudcover: 0,
 }
 
 export const getAveragedData = (weatherData: IWeatherData[], averagingValue: number) => {
   let averagedData: IWeatherData[] = []
-  let tempData: Omit<IWeatherData, 'datetime'> = {
-    tempmax: 0,
-    tempmin: 0,
-    temp: 0,
-    dew: 0,
-    humidity: 0,
-    precip: 0,
-    precipcover: 0,
-    windspeed: 0,
-    winddir: 0,
-    pressure: 0,
-    cloudcover: 0,
-  }
+  let tempData = {...emptyTempData} as Omit<IWeatherData, 'datetime'>
   let counter = 0
 
   weatherData.forEach((day, index) => {
@@ -104,37 +105,28 @@ export const getAveragedData = (weatherData: IWeatherData[], averagingValue: num
       cloudcover: tempData.cloudcover + day.cloudcover,
     }
 
-    if (counter % averagingValue === 0 || weatherData.length === index + 1) {
-      const averagedValues = Object.entries(tempData).map(el => {
+    if (counter / averagingValue === 1 || weatherData.length === index + 1) {
+      Object.entries(tempData).forEach(el => {
         if (el[0] === 'precip') {
-          return el[1]
-        } else {
-          return el[1] / averagingValue
+          tempData = {...tempData, [el[0]]: round(el[1])}
+          return
         }
+        if (weatherData.length < averagingValue) {
+          tempData = {...tempData, [el[0]]: round(el[1] / weatherData.length)}
+          return
+        }
+        tempData = {...tempData, [el[0]]: round(el[1] / averagingValue)}
       })
-      let testObj = {}
-      Object.keys(tempData).forEach((key, index) => {
-        testObj = {...testObj, [key]: Math.round((averagedValues[index] + Number.EPSILON) * 100) / 100}
-      })
-      // @ts-ignore
-      averagedData = [...averagedData, {datetime: day.datetime, ...testObj}]
-      counter = 0
+      averagedData = [...averagedData, {...tempData, datetime: day.datetime}]
 
-      tempData = {
-        tempmax: 0,
-        tempmin: 0,
-        temp: 0,
-        dew: 0,
-        humidity: 0,
-        precip: 0,
-        precipcover: 0,
-        windspeed: 0,
-        winddir: 0,
-        pressure: 0,
-        cloudcover: 0,
-      }
+      tempData = {...emptyTempData} as Omit<IWeatherData, 'datetime'>
+      counter = 0
     }
   })
-
   return averagedData
+}
+
+
+export const round = (value: number) => {
+  return Math.round((value + Number.EPSILON) * 100) / 100
 }

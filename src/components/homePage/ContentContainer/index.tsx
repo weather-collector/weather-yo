@@ -17,7 +17,7 @@ const InterfaceLoader = dynamic(() => import("../../shared/Loaders/InterfaceLoad
 })
 
 
-const EmptyContainer = () => {
+const ContentContainer = () => {
   const {reports, isLoading} = useReports()
 
   const router = useRouter()
@@ -42,7 +42,7 @@ const EmptyContainer = () => {
         {reports && (
           <>
             <Typography textSize={2} textColor={COLORS.black} fontWeight={500}>Ваші останні звіти</Typography>
-            <ReportsTable pagination={false} reports={reports.slice(0, 5)} />
+            <ReportsTable pagination={false} reports={reports.slice(0, 3)} />
           </>
         )}
       </Styles.LatestReports>
@@ -50,4 +50,4 @@ const EmptyContainer = () => {
   )
 }
 
-export default EmptyContainer
+export default ContentContainer

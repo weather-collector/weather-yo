@@ -56,6 +56,7 @@ const LoginForm = () => {
                 type={'email'}
                 error={!!formik.errors.email}
                 caption={formik.errors.email}
+                autoComplete={'username'}
                 required
               />
 
@@ -66,6 +67,7 @@ const LoginForm = () => {
                   type={'password'}
                   error={!!formik.errors.password}
                   caption={formik.errors.password}
+                  autoComplete={"current-password"}
                   required
                 />
                 <DialogModal

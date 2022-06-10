@@ -5,7 +5,7 @@ import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import BaseLayout from '../../src/components/layouts/BaseLayout'
 import ReportHeader from '../../src/components/reportsPage/ReportHeader'
-import ReportTab from '../../src/components/reportsPage/Tab'
+import ReportTab from '../../src/components/reportsPage/ReportTab'
 import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
 import {getSingleReport} from '../../src/store/reducers/ActionCreators/reportActions'
 

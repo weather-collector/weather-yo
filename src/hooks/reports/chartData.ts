@@ -1,6 +1,6 @@
 import {IChartData, IChartObject} from '../../models/IChartObject'
 import {IWeatherData} from '../../models/IWeatherData'
-import {getActiveTemp, getEffectiveTemp, getGTK} from '../../utils/weather'
+import {getActiveTemp, getEffectiveTemp, getGTK, round} from '../../utils/weather'
 import {useAppSelector} from '../redux'
 
 
@@ -14,18 +14,18 @@ export const useChartData = (averagingValue = 1) => {
     let resultValue = 0
     let counter = 0
 
-    weatherData.forEach((day, index) => {
-        resultValue += day[indicator.name as keyof Omit<IWeatherData, "datetime">]
-        counter++
+    weatherData.forEach((day) => {
+      resultValue += day[indicator.name as keyof Omit<IWeatherData, "datetime">]
+      counter++
 
-        if (counter % averagingValue === 0) {
-          chartData = [...chartData, {
-            dateOfTime: day.datetime,
-            value: indicator.name === 'precip' ? Math.round((resultValue + Number.EPSILON) * 100) / 100 : Math.round((resultValue / counter + Number.EPSILON) * 100) / 100,
-          }]
-          counter = 0
-          resultValue = 0
-        }
+      if (counter % averagingValue === 0) {
+        chartData = [...chartData, {
+          dateOfTime: day.datetime,
+          value: indicator.name === 'precip' ? round(resultValue) : round(resultValue / counter)
+        }]
+        counter = 0
+        resultValue = 0
+      }
     })
 
     let chartObject = {
@@ -50,16 +50,16 @@ export const useTempsData = (callback: typeof getEffectiveTemp | typeof getActiv
   let tempValue = 0
 
   weatherData.forEach((day, index) => {
-      counter++
+    counter++
 
-      if (counter % averagingValue === 0) {
-        tempValue += callback(weatherData.slice(prevIndex, index + 1).map(el => el.temp), aboveValue)
-        chartData = [...chartData, {
-          dateOfTime: day.datetime,
-          value: Math.round((tempValue + Number.EPSILON) * 100) / 100,
-        }]
-        prevIndex = index + 1
-      }
+    if (counter % averagingValue === 0) {
+      tempValue += callback(weatherData.slice(prevIndex, index + 1).map(el => el.temp), aboveValue)
+      chartData = [...chartData, {
+        dateOfTime: day.datetime,
+        value: round(tempValue),
+      }]
+      prevIndex = index + 1
+    }
   })
 
   let chartObject = {
@@ -67,8 +67,7 @@ export const useTempsData = (callback: typeof getEffectiveTemp | typeof getActiv
     label: 'Сума температур',
     chartData: chartData,
   }
-  //@ts-ignore
-  resultTempsData.push(chartObject)
+  resultTempsData.push(<IChartObject>chartObject)
 
   return {resultTempsData}
 }
@@ -84,15 +83,15 @@ export const useGTKData = () => {
   let prevIndex = 0
 
   weatherData.forEach((day, index) => {
-      counter++
+    counter++
 
-      if (counter % averagingValue === 0) {
-        chartData = [...chartData, {
-          dateOfTime: day.datetime,
-          value: Math.round((getGTK(weatherData.slice(prevIndex, index + 1)) + Number.EPSILON) * 100) / 100,
-        }]
-        prevIndex = index + 1
-      }
+    if (counter % averagingValue === 0) {
+      chartData = [...chartData, {
+        dateOfTime: day.datetime,
+        value: round(getGTK(weatherData.slice(prevIndex, index + 1)))
+      }]
+      prevIndex = index + 1
+    }
   })
 
   let chartObject = {

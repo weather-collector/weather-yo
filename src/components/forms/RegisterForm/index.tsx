@@ -58,6 +58,7 @@ const RegisterForm = () => {
                 type={'email'}
                 error={!!formik.errors.email}
                 caption={formik.errors.email}
+                autoComplete={'username'}
                 required
               />
 
@@ -67,6 +68,7 @@ const RegisterForm = () => {
                 type={'password'}
                 error={!!formik.errors.password}
                 caption={formik.errors.password}
+                autoComplete={"current-password"}
                 required
               />
 

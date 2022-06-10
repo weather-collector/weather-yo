@@ -1,7 +1,7 @@
 import * as am5 from "@amcharts/amcharts5"
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import * as am5xy from "@amcharts/amcharts5/xy"
-import React, {useEffect} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {IChart} from '../../../models/IChart'
 import {IChartObject} from '../../../models/IChartObject'
 import * as Styles from '../styles'
@@ -9,7 +9,7 @@ import * as Styles from '../styles'
 
 const BarChart = ({id, data, daysAmount}: IChart) => {
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let root = am5.Root.new(id)
 
     root.interfaceColors.set("grid", am5.color('#11181C'))
@@ -35,7 +35,6 @@ const BarChart = ({id, data, daysAmount}: IChart) => {
       pinchZoomX: true,
     }))
 
-
     let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
       behavior: "none",
     }))
@@ -52,8 +51,7 @@ const BarChart = ({id, data, daysAmount}: IChart) => {
       tooltip: am5.Tooltip.new(root, {}),
       extraMax: 0.01,
     }))
-
-      let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
       maxDeviation: 0.1,
       extraMax: 0.1,
       renderer: am5xy.AxisRendererY.new(root, {pan: "zoom"}),
@@ -72,12 +70,10 @@ const BarChart = ({id, data, daysAmount}: IChart) => {
         }),
       }))
       series.set("fill", am5.color('#3E63DD'))
-
       series.data.processor = am5.DataProcessor.new(root, {
         dateFormat: "dd-mm-yyyy",
         dateFields: ["dateOfTime"],
       })
-
       if (daysAmount >= 10) {
         series.bullets.push(() => {
           return am5.Bullet.new(root, {
@@ -87,16 +83,15 @@ const BarChart = ({id, data, daysAmount}: IChart) => {
               centerY: am5.p100,
               centerX: am5.p50,
               populateText: true,
-              fontSize: '14px'
+              fontSize: '14px',
             }),
           })
         })
       }
-
       series.data.setAll(chartData.chartData)
       series.appear(1000)
     })
-    chart.appear(1000, 100)
+    chart.appear(1000, 100).then()
 
     return () => root.dispose()
   }, [data, daysAmount, id])

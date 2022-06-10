@@ -1,6 +1,6 @@
 import {ColumnsType, TablePaginationConfig} from 'antd/lib/table'
 import Link from 'next/link'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Space, Table} from 'antd'
 import {toast} from 'react-toastify'
 import {useSWRConfig} from 'swr'
@@ -16,16 +16,10 @@ type ReportsTableProps = {
 
 const ReportsTable = ({reports, pagination}: ReportsTableProps) => {
   const {mutate} = useSWRConfig()
-  const [rows, setRows] = useState(reports)
-
-  useEffect(() => {
-    mutate('/reports').then(newData => setRows(newData))
-  }, [])
 
   const deleteReportHandler = async (reportId: string) => {
     const response = await $api.delete(`/reports/${reportId}`)
-    const newData = await mutate('/reports')
-    setRows(newData)
+    await mutate('/reports')
     toast(response.data.message)
   }
 
@@ -78,7 +72,7 @@ const ReportsTable = ({reports, pagination}: ReportsTableProps) => {
   ]
 
   return (
-    <Table pagination={pagination} columns={columns} dataSource={rows} rowKey={'id'} />
+    <Table pagination={pagination} columns={columns} dataSource={reports} rowKey={'id'} />
   )
 }
 

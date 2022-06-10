@@ -27,7 +27,7 @@ const WeatherTable = () => {
     <Table
       // @ts-ignore
       columns={[dateColumn, ...columns]}
-      dataSource={averagedWeatherData.map((day) => ({...day, 'winddir': getWindDirection(day.winddir)}))}
+      dataSource={averagedWeatherData.map((day) => ({...day, winddir: getWindDirection(day.winddir)}))}
       rowKey={'datetime'}
     />
   )

@@ -22,7 +22,7 @@ const DisplayCorrectChart = () => {
     return <BarChart id={'precipBarChart'} data={resultChartData} daysAmount={averagingAmount} />
   }
   if (selectedIndicators[0].name === 'winddir') {
-    return <PolarChart id={'windDirRoseChart'} />
+    return <PolarChart />
   }
   return <LineChart id={'weatherIndicatorsChart'} data={resultChartData} daysAmount={averagingAmount} />
 }
