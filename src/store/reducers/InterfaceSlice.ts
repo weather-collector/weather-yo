@@ -13,10 +13,12 @@ export const interfaceSlice = createSlice({
   name: 'interface',
   initialState,
   reducers: {
-    loading(state, action: PayloadAction<boolean>) {
+    interfaceLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
-    }
-  }
+    },
+  },
 })
+
+export const {interfaceLoading} = interfaceSlice.actions
 
 export default interfaceSlice.reducer

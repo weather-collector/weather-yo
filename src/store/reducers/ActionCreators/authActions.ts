@@ -3,14 +3,14 @@ import {toast} from 'react-toastify'
 import $api from '../../../http'
 import {AuthResponse} from '../../../models/response/AuthResponse'
 import {AppDispatch} from '../../store'
-import {authSlice} from '../AuthSlice'
+import {loading, auth, logout as logoutAction} from '../AuthSlice'
 
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
-  dispatch(authSlice.actions.loading(true))
+  dispatch(loading(true))
   try {
     const response = await $api.post<AuthResponse>(`/login`, {email, password})
-    dispatch(authSlice.actions.auth(response.data))
+    dispatch(auth(response.data))
     localStorage.setItem('token', response.data.accessToken)
     return true
   } catch (error) {
@@ -19,51 +19,50 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
       return false
     }
   } finally {
-    dispatch(authSlice.actions.loading(false))
+    dispatch(loading(false))
   }
 }
 
 export const googleAuth = (token: string) => async (dispatch: AppDispatch) => {
-  dispatch(authSlice.actions.loading(true))
+  dispatch(loading(true))
   try {
     const response = await $api.post<AuthResponse>(`/google-auth`, {token})
-    dispatch(authSlice.actions.auth(response.data))
+    dispatch(auth(response.data))
     localStorage.setItem('token', response.data.accessToken)
   } catch (error) {
     if (error instanceof AxiosError) {
       toast(error.response?.data?.message)
     }
   } finally {
-    dispatch(authSlice.actions.loading(false))
+    dispatch(loading(false))
   }
 }
 
 export const register = (email: string, password: string) => async (dispatch: AppDispatch) => {
-  dispatch(authSlice.actions.loading(true))
+  dispatch(loading(true))
   try {
     const response = await $api.post<AuthResponse>(`/registration`, {email, password})
-    dispatch(authSlice.actions.auth(response.data))
+    dispatch(auth(response.data))
     localStorage.setItem('token', response.data.accessToken)
   } catch (error) {
     if (error instanceof AxiosError) {
       toast(error.response?.data?.message)
     }
   } finally {
-    dispatch(authSlice.actions.loading(false))
+    dispatch(loading(false))
   }
 }
 
 export const logout = () => async (dispatch: AppDispatch) => {
-  dispatch(authSlice.actions.loading(true))
+  dispatch(loading(true))
   try {
-    const response = await $api.post<AuthResponse>(`/logout`)
-    dispatch(authSlice.actions.logout())
+    await $api.post<AuthResponse>(`/logout`)
+    dispatch(logoutAction())
     localStorage.removeItem('token')
   } catch (error) {
-    if (error instanceof AxiosError) {
-    }
+    if (error instanceof AxiosError) {}
   } finally {
-    dispatch(authSlice.actions.loading(false))
+    dispatch(loading(false))
   }
 }
 
@@ -73,21 +72,21 @@ export const checkAuth = () => async (dispatch: AppDispatch) => {
       const response = await axios.get<AuthResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/refresh`, {
         withCredentials: true,
       })
-      dispatch(authSlice.actions.auth(response.data))
+      localStorage.setItem('token', response.data.accessToken)
+      dispatch(auth(response.data))
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      dispatch(authSlice.actions.logout())
-      //localStorage.removeItem('token')
+      dispatch(logoutAction())
     }
   } finally {
-    dispatch(authSlice.actions.loading(false))
+    dispatch(loading(false))
   }
 }
 
 export const sendResetPasswordMail = async (email: string) => {
   try {
-    const response = await axios.post<{ message: string }>(`${process.env.NEXT_PUBLIC_API_URL}/api/send-reset-email`, {email})
+    const response = await axios.post<{message: string}>(`${process.env.NEXT_PUBLIC_API_URL}/api/send-reset-email`, {email})
     toast(response.data.message)
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -98,7 +97,33 @@ export const sendResetPasswordMail = async (email: string) => {
 
 export const changePassword = async (password: string, token: string) => {
   try {
-    const response = await axios.post<{ message: string }>(`${process.env.NEXT_PUBLIC_API_URL}/api/reset-password/${token}`, {password})
+    const response = await axios.post<{message: string}>(`${process.env.NEXT_PUBLIC_API_URL}/api/reset-password/${token}`, {password})
+    toast(response.data.message)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast(error.response?.data?.message)
+    }
+  }
+}
+
+export const updatePassword = async (newPassword: string, currentPassword: string) => {
+  try {
+    const response = await $api.post<{message: string}>(`/update-password`, {
+      newPassword, currentPassword
+    })
+    toast(response.data.message)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast(error.response?.data?.message)
+    }
+  }
+}
+
+export const sendNotificationEmail = async (theme: string, message: string) => {
+  try {
+    const response = await $api.post<{message: string}>(`/send-email`, {
+      theme, message
+    })
     toast(response.data.message)
   } catch (error) {
     if (error instanceof AxiosError) {

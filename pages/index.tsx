@@ -12,6 +12,7 @@ const StyledMainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
 
   > * {
     padding: 10px;
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
       <MetaHead />
       <BaseLayout>
         <StyledMainContentWrapper>
-          <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Моя Панель</Typography>
+          <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Головна панель</Typography>
           <ContentContainer />
         </StyledMainContentWrapper>
       </BaseLayout>

@@ -2,8 +2,8 @@ import {AxiosError} from 'axios'
 import $api from '../../../http'
 import {ReportResponse} from '../../../models/response/ReportResponse'
 import {AppDispatch} from '../../store'
-import {interfaceSlice} from '../InterfaceSlice'
-import {reportSlice} from '../ReportSlice'
+import {interfaceLoading} from '../InterfaceSlice'
+import {setReportData} from '../ReportSlice'
 
 
 type generateReportProps = {
@@ -14,34 +14,27 @@ type generateReportProps = {
 }
 
 export const generateReport = ({locationName, latitude, longitude, dateRange}: generateReportProps) => async (dispatch: AppDispatch) => {
-  dispatch(interfaceSlice.actions.loading(true))
+  dispatch(interfaceLoading(true))
   try {
     const response = await $api.post<{message: string, reportId: string}>(`/generate-report`, {
       latitude, longitude, dateRange, locationName,
     })
     return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log(error.response?.data?.message)
-      return false
-    }
+    if (error instanceof AxiosError) {}
   } finally {
-    dispatch(interfaceSlice.actions.loading(false))
+    dispatch(interfaceLoading(false))
   }
 }
 
 export const getSingleReport = (id: string) => async (dispatch: AppDispatch) => {
-  dispatch(interfaceSlice.actions.loading(true))
+  dispatch(interfaceLoading(true))
   try {
     const response = await $api.get<ReportResponse>(`/reports/${id}`)
-    dispatch(reportSlice.actions.setReportData({...response.data}))
-    return true
+    dispatch(setReportData({...response.data}))
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log(error.response?.data?.message)
-      return false
-    }
+    if (error instanceof AxiosError) {}
   } finally {
-    dispatch(interfaceSlice.actions.loading(false))
+    dispatch(interfaceLoading(false))
   }
 }

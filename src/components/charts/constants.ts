@@ -1,4 +1,4 @@
-import {getWindDirection} from '../../utils/weather'
+import {getWindDirection, round} from '../../utils/weather'
 
 
 const categories = ['Пн', 'Пн-Сх', 'Сх', 'Пд-Сх', 'Пд', 'Пд-Зах', 'Зах', 'Пн-Зах']
@@ -79,7 +79,7 @@ export function calculateWindRoseData(windSpeed: number[], windDirection: number
         return previousValue + parseInt(currentValue[1] as string)
       }, 0)
 
-      flattenedData.push([el, Math.round((flattenedValue * 100 / windSpeedSum + Number.EPSILON))])
+      flattenedData.push([el, round(flattenedValue * 100 / windSpeedSum)])
     })
     dataObj.data = flattenedData
     flattenedData = []

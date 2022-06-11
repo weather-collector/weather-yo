@@ -1,7 +1,7 @@
-import {Formik, FormikProps, useField, useFormik} from 'formik'
-import React, {useEffect, useMemo, useState} from 'react'
+import {Formik, FormikProps} from 'formik'
+import React, {useEffect} from 'react'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
-import {reportSlice} from '../../../store/reducers/ReportSlice'
+import {setSelectedIndicators} from '../../../store/reducers/ReportSlice'
 import CheckBox from '../../shared/Checkbox'
 import {weatherIndicators} from './constants'
 import * as Styles from './styles'
@@ -28,14 +28,14 @@ const ValuePicker = ({activeTab}: ValuePickerProps) => {
       values.checkedValues = [values.checkedValues]
     }
     const activeWeatherIndicators = weatherIndicators.filter((el) => values.checkedValues.includes(el.name))
-    dispatch(reportSlice.actions.setSelectedIndicators(activeWeatherIndicators))
+    dispatch(setSelectedIndicators(activeWeatherIndicators))
   }
 
   useEffect(() => {
     if (activeTab === '2') {
-      dispatch(reportSlice.actions.setSelectedIndicators([weatherIndicators[0]]))
+      dispatch(setSelectedIndicators([weatherIndicators[0]]))
     } else {
-      dispatch(reportSlice.actions.setSelectedIndicators(weatherIndicators))
+      dispatch(setSelectedIndicators(weatherIndicators))
     }
   }, [activeTab])
 

@@ -5,7 +5,7 @@ import DatePicker, {registerLocale} from "react-datepicker"
 import uk from 'date-fns/locale/uk'
 import "react-datepicker/dist/react-datepicker.css"
 import {useAppDispatch} from '../../../hooks/redux'
-import {mapFormSlice} from '../../../store/reducers/MapFormSlice'
+import {setMapFormDateRange} from '../../../store/reducers/MapFormSlice'
 import {convertDateToString} from '../../../utils/dateConverters'
 import * as Styles from './styles'
 
@@ -32,7 +32,7 @@ const DatePickerField = ({name, label, error, caption = '', width, placeholder, 
   const onChangeHandler = (dates: Array<Date>) => {
     const [from, to] = dates.map(date => convertDateToString(date))
     setFieldValue(field.name, `${from} - ${to}`)
-    dispatch(mapFormSlice.actions.setMapFormDateRange(`${from} - ${to}`))
+    dispatch(setMapFormDateRange(`${from} - ${to}`))
 
     const [start, end] = dates
     setStartDate(start)
@@ -87,7 +87,7 @@ const DatepickerShorthands = ({setStartDate, setEndDate, setFieldValue, fieldNam
     setStartDate(subDays(new Date(), period + 5))
     setEndDate(subDays(new Date(), 6))
     setFieldValue(fieldName, filedValue)
-    dispatch(mapFormSlice.actions.setMapFormDateRange(filedValue))
+    dispatch(setMapFormDateRange(filedValue))
   }
 
   return (

@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: {} as IUser,
   isAuth: false,
-  isLoading: true
+  isLoading: true,
 }
 
 export const authSlice = createSlice({
@@ -29,8 +29,10 @@ export const authSlice = createSlice({
     },
     loading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
-    }
-  }
+    },
+  },
 })
+
+export const {auth, logout, loading} = authSlice.actions
 
 export default authSlice.reducer

@@ -2,7 +2,7 @@ import {Form} from 'formik'
 import styled from 'styled-components'
 
 
-export const RegisterForm = styled(Form)`
+export const FormStyles = styled(Form)`
   max-width: 380px;
   width: 100%;
   display: flex;

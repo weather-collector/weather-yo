@@ -39,8 +39,10 @@ export const reportSlice = createSlice({
     },
     setAveragingAmount(state, action: PayloadAction<number>) {
       state.averagingAmount = action.payload
-    }
+    },
   },
 })
+
+export const {setReportData, setSelectedIndicators, setAveragingAmount} = reportSlice.actions
 
 export default reportSlice.reducer

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {Field} from 'formik'
 import {COLORS} from '../../../styles/theme'
 
@@ -13,7 +13,12 @@ export const Label = styled.label`
   color: ${COLORS.labelText};
 `
 
-export const Input = styled(Field)`
+const textArea = css`
+  resize: none;
+  height: 190px;
+`
+
+export const Input = styled(Field)<{as: any}>`
   z-index: 1;
   width: 100%;
   border: unset;
@@ -32,6 +37,7 @@ export const Input = styled(Field)`
     background-color: ${COLORS.hoveredBg};
     box-shadow: ${props => props.error === 'true' ? `0 0 0 1px ${COLORS.error}`: `0 0 0 1px ${COLORS.accent}`};
   }
+  ${props => props.as === 'textarea' ? textArea : null}
 `
 
 export const InputCaption = styled.div`

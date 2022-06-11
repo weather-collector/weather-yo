@@ -10,8 +10,9 @@ import Button from '../../shared/Button'
 import DialogModal from '../../shared/Modals/DialogModal'
 import Typography from '../../shared/Typography'
 import EmailForm from '../EmailForm'
-import * as Styles from './styles'
 import Input from '../../shared/Input'
+import * as Styles from './styles'
+import * as FormStyles from '../styles'
 
 
 interface LoginFormValues {
@@ -48,8 +49,8 @@ const LoginForm = () => {
     >
       {(formik: FormikProps<LoginFormValues>) => {
         return (
-          <Styles.LoginForm>
-            <Styles.FormWrapper>
+          <FormStyles.FormStyles>
+            <FormStyles.FormWrapper>
               <Input
                 label={'Email'}
                 name={'email'}
@@ -86,7 +87,7 @@ const LoginForm = () => {
               <Button type={'submit'}>
                 <Typography textSize={1} textColor={COLORS.whiteText}>Увійти</Typography>
               </Button>
-            </Styles.FormWrapper>
+            </FormStyles.FormWrapper>
             <div id={'google-login'} style={{display: 'flex', justifyContent: 'center'}} />
             <Link href={'/register'}>
               <a>
@@ -105,7 +106,7 @@ const LoginForm = () => {
                 </Button>
               </a>
             </Link>
-          </Styles.LoginForm>
+          </FormStyles.FormStyles>
         )
       }}
     </Formik>

@@ -9,7 +9,7 @@ import {COLORS} from '../../../styles/theme'
 import Button from '../../shared/Button'
 import CheckBox from '../../shared/Checkbox'
 import Typography from '../../shared/Typography'
-import * as Styles from './styles'
+import * as Styles from '../styles'
 import Input from '../../shared/Input'
 
 
@@ -50,7 +50,7 @@ const RegisterForm = () => {
     >
       {(formik: FormikProps<RegisterFormValues>) => {
         return (
-          <Styles.RegisterForm>
+          <Styles.FormStyles>
             <Styles.FormWrapper>
               <Input
                 label={'Email'}
@@ -101,7 +101,7 @@ const RegisterForm = () => {
                 </Button>
               </a>
             </Link>
-          </Styles.RegisterForm>
+          </Styles.FormStyles>
         )
       }}
     </Formik>

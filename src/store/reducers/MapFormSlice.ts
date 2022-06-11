@@ -27,8 +27,10 @@ export const mapFormSlice = createSlice({
     },
     setMapFormDateRange(state, action: PayloadAction<string>) {
       state.dateRange = action.payload
-    }
-  }
+    },
+  },
 })
+
+export const {setMapFormData, setMapFormDateRange} = mapFormSlice.actions
 
 export default mapFormSlice.reducer

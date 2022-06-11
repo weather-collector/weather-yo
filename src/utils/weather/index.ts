@@ -42,7 +42,6 @@ export const getGTK = (weatherData: IWeatherData[]): number => {
   return precip / (0.1 * activeTemps)
 }
 
-
 export const getWindDirection = (windDirInDegrees: number): string => {
   if (windDirInDegrees >= 23 && windDirInDegrees <= 68) {
     return "Пн-Сх"

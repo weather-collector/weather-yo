@@ -55,7 +55,7 @@ const Analytics = () => {
             <Typography textSize={2} fontWeight={600} textColor={COLORS.black}>Сума ефективних температур</Typography>
             <Typography textSize={3} fontWeight={700} textColor={COLORS.black}>{effectiveTemp.toFixed(1)} °C</Typography>
             <Typography textSize={1} textColor={COLORS.black}>
-              Сума середніх добових температур повітря, зменшених на величину біологічного мінімума (5°C)
+              Сума середніх добових температур повітря, зменшених на величину біологічного мінімума (5 °C)
             </Typography>
           </Styles.TempInfo>
           <BarChart id={'effectiveTemp'} data={chartEffectiveTemps} daysAmount={10} />

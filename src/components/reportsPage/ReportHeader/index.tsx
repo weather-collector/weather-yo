@@ -1,6 +1,6 @@
 import React from 'react'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
-import {reportSlice} from '../../../store/reducers/ReportSlice'
+import {setAveragingAmount} from '../../../store/reducers/ReportSlice'
 import {COLORS} from '../../../styles/theme'
 import {exportToExcel} from '../../../utils/exportToExcel'
 import Typography from '../../shared/Typography'
@@ -14,7 +14,7 @@ const ReportHeader = () => {
   const {address, longitude, latitude, dateRange, weatherData} = useAppSelector(state => state.reportReducer)
 
   const averagingHandler = (amount: number) => {
-    dispatch(reportSlice.actions.setAveragingAmount(amount))
+    dispatch(setAveragingAmount(amount))
   }
 
   return (
