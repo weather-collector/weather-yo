@@ -98,10 +98,10 @@ const LoginForm = () => {
                   activeBgColor={COLORS.activeSuccessBg}
                 >
                   <Typography textSize={'14px'} textColor={COLORS.successText}>
-                    Ще немає облікового запису?
+                    Немає облікового запису?
                   </Typography>
                   <Typography textSize={'14px'} textColor={COLORS.successTextBold} fontWeight={600}>
-                    Зареєструватися
+                    Створити
                   </Typography>
                 </Button>
               </a>

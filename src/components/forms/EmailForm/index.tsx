@@ -49,7 +49,6 @@ const EmailForm = () => {
                 bgColor={COLORS.successBg}
                 hoveredBgColor={COLORS.hoveredSuccessBg}
                 activeBgColor={COLORS.activeSuccessBg}
-                width={'50%'}
               >
                 <Typography
                   textSize={'14px'}

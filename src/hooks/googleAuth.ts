@@ -20,7 +20,7 @@ export const useGoogleAuth = () => {
         theme: 'outline',
         size: 'large',
         locale: "uk_UA",
-        width: 380,
+        //width: 380,
       },
     )
   }, [])

@@ -16,6 +16,7 @@ export const Menu = styled.nav<{isMenuOpen: boolean}>`
   align-items: center;
   transition: all 0.15s ease-in-out;
   box-shadow: 4px 1px 8px 0 rgba(0,0,0,0.59);
+  z-index: 1;
   ${props => !props.isMenuOpen ? css`
     transform: translateX(-100%);
     margin-left: -280px;
