@@ -39,7 +39,7 @@ const Header = () => {
           {/*<Styles.Notification>*/}
           {/*  <BellIcon />*/}
           {/*</Styles.Notification>*/}
-          <Link href={'/settings'}>
+          <Link href={'/settings'} passHref>
             <Styles.Profile>
               <Typography textSize={1} textColor={COLORS.primary}>{user.email}</Typography>
               <AvatarIcon />

@@ -45,7 +45,9 @@ export const useTempsData = (callback: typeof getEffectiveTemp | typeof getActiv
   weatherData.forEach((day, index) => {
     counter++
 
-    if (counter % averagingValue === 0) {
+    let condition = (weatherData.length === index + 1) && (counter > (2/3) * averagingValue)
+    //last portion of data bigger than 2/3 of averagingValue
+    if (counter % averagingValue === 0 || condition) {
       tempValue += callback(weatherData.slice(prevIndex, index + 1).map(el => el.temp), aboveValue)
       chartData = [...chartData, {
         dateOfTime: day.datetime,
@@ -78,7 +80,9 @@ export const useGTKData = () => {
   weatherData.forEach((day, index) => {
     counter++
 
-    if (counter % averagingValue === 0) {
+    let condition = (weatherData.length === index + 1) && (counter > (2/3) * averagingValue)
+    //last portion of data bigger than 2/3 of averagingValue
+    if (counter % averagingValue === 0 || condition) {
       chartData = [...chartData, {
         dateOfTime: day.datetime,
         value: round(getGTK(weatherData.slice(prevIndex, index + 1))),
