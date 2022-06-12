@@ -29,6 +29,7 @@ const WeatherTable = () => {
       columns={[dateColumn, ...columns]}
       dataSource={averagedWeatherData.map((day) => ({...day, winddir: getWindDirection(day.winddir)}))}
       rowKey={'datetime'}
+      style={{overflowX: 'auto', minWidth: '970px'}}
     />
   )
 }

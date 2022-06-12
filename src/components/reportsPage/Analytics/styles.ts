@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {COLORS} from '../../../styles/theme'
+import {MEDIA_QUERIES} from '../../../utils/mediaQueries'
 
 
 export const TempsDataWrapper = styled.div`
@@ -22,6 +23,10 @@ export const TempBlock = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  ${MEDIA_QUERIES.lg} {
+    flex-direction: column;
+    overflow-x: auto;
+  }
 `
 
 export const TempInfo = styled.div`

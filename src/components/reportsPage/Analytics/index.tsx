@@ -31,7 +31,7 @@ const Analytics = () => {
               <Typography textSize={2} fontWeight={600} textColor={COLORS.black}>Сума активних температур</Typography>
               <Typography textSize={3} fontWeight={700} textColor={COLORS.black}>{activeTempGreaterZero.toFixed(1)} °C</Typography>
               <Typography textSize={1} textColor={COLORS.black}>
-                Сума середніх добових температур вище 0 °C
+                Сума середніх добових температур<br /> вище 0 °C
               </Typography>
             </Styles.TempInfo>
             <BarChart id={'activeTempGreaterThanZero'} data={chartTempsGreaterZero} daysAmount={10} />
@@ -42,7 +42,7 @@ const Analytics = () => {
           <Styles.TempInfo>
             <Typography textSize={3} fontWeight={700} textColor={COLORS.black}>{activeTempGreaterTen.toFixed(1)} °C</Typography>
             <Typography textSize={1} textColor={COLORS.black}>
-              Сума середніх добових температур вище 10 °C
+              Сума середніх добових температур<br /> вище 10 °C
             </Typography>
           </Styles.TempInfo>
           <BarChart id={'activeTempGreaterThanTen'} data={chartTempsGreaterTen} daysAmount={10} />

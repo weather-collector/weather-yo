@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {COLORS} from '../../../styles/theme'
+import {MEDIA_QUERIES} from '../../../utils/mediaQueries'
 
 
 export const HeaderWrapper = styled.div`
@@ -7,6 +8,11 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 40px;
+  ${MEDIA_QUERIES.md} {
+    flex-direction: column;
+    align-items: unset;
+  }
 `
 
 export const ReportInfo = styled.div`
@@ -82,4 +88,11 @@ export const AveragingButton = styled.button`
 export const Divider = styled.span`
   width: 2px;
   background-color: ${COLORS.accent};
+`
+
+export const SettingsSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-grow: 1;
 `

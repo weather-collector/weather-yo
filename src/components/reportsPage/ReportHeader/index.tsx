@@ -34,23 +34,26 @@ const ReportHeader = () => {
         </Styles.DateRange>
       </Styles.ReportInfo>
 
-      <Styles.AveragingButtonsWrapper>
-        <Styles.AveragingButton onClick={() => averagingHandler(1)}>
-          День
-        </Styles.AveragingButton>
-        <Styles.Divider />
-        <Styles.AveragingButton onClick={() => averagingHandler(10)}>
-          Декада
-        </Styles.AveragingButton>
-        <Styles.Divider />
-        <Styles.AveragingButton onClick={() => averagingHandler(30)}>
-          Місяць
-        </Styles.AveragingButton>
-      </Styles.AveragingButtonsWrapper>
+      <Styles.SettingsSection>
+        <Styles.AveragingButtonsWrapper>
+          <Styles.AveragingButton onClick={() => averagingHandler(1)}>
+            День
+          </Styles.AveragingButton>
+          <Styles.Divider />
+          <Styles.AveragingButton onClick={() => averagingHandler(10)}>
+            Декада
+          </Styles.AveragingButton>
+          <Styles.Divider />
+          <Styles.AveragingButton onClick={() => averagingHandler(30)}>
+            Місяць
+          </Styles.AveragingButton>
+        </Styles.AveragingButtonsWrapper>
 
-      <Styles.DownloadButton onClick={() => exportToExcel(weatherData, `${address}-показники`)}>
-        <DownloadIcon />
-      </Styles.DownloadButton>
+        <Styles.DownloadButton onClick={() => exportToExcel(weatherData, `${address}-показники`)}>
+          <DownloadIcon />
+        </Styles.DownloadButton>
+      </Styles.SettingsSection>
+
     </Styles.HeaderWrapper>
   )
 }

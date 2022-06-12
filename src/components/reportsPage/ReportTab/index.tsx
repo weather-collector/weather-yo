@@ -44,7 +44,7 @@ const ReportTab = () => {
       <TabPane tab="Загальні показники" key="1">
         <Styles.GeneralData>
           <ValuePicker activeTab={activeTab} />
-          <div style={{width: '100%'}}>
+          <div style={{width: '100%', overflowX: 'auto'}}>
             <Tabs
               defaultActiveKey={'1'}
               onChange={onChangeTab}
@@ -59,7 +59,6 @@ const ReportTab = () => {
               </TabPane>
             </Tabs>
           </div>
-
         </Styles.GeneralData>
       </TabPane>
 

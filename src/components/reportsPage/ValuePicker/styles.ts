@@ -1,6 +1,7 @@
 import {Form} from 'formik'
 import styled from 'styled-components'
 import {COLORS} from '../../../styles/theme'
+import {MEDIA_QUERIES} from '../../../utils/mediaQueries'
 
 
 export const ValuePickerForm = styled(Form)`
@@ -20,5 +21,16 @@ export const ValuePickerForm = styled(Form)`
       background-color: ${COLORS.activeBg};
       transform: translateX(2px);
     }
+  }
+  ${MEDIA_QUERIES.lg} {
+    flex-direction: row;
+    max-width: unset;
+    column-gap: 20px;
+    > * {
+      min-width: 260px;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+    flex-wrap: wrap;
   }
 `
