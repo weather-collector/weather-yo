@@ -23,11 +23,8 @@ export const Logo = styled.a`
 
 export const LeftPart = styled.div`
   display: flex;
-  column-gap: 20px;
+  gap: 20px;
   align-items: center;
-  ${MEDIA_QUERIES.xs} {
-    column-gap: 10px;
-  }
 `
 
 export const RightPart = styled.div`

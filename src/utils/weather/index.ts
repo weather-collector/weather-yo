@@ -104,7 +104,7 @@ export const getAveragedData = (weatherData: IWeatherData[], averagingValue: num
       cloudcover: tempData.cloudcover + day.cloudcover,
     }
 
-    if (counter / averagingValue === 1 || weatherData.length === index + 1) {
+    if (counter / averagingValue === 1) {//|| weatherData.length === index + 1
       Object.entries(tempData).forEach(el => {
         if (el[0] === 'precip') {
           tempData = {...tempData, [el[0]]: round(el[1])}

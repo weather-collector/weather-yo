@@ -1,8 +1,9 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {COLORS} from '../../../styles/theme'
+import {MEDIA_QUERIES} from '../../../utils/mediaQueries'
 
 
-export const Menu = styled.nav`
+export const Menu = styled.nav<{isMenuOpen: boolean}>`
   flex-shrink: 0;
   top: 60px;
   position: sticky;
@@ -13,6 +14,18 @@ export const Menu = styled.nav`
   flex-direction: column;
   background-color: ${COLORS.primary};
   align-items: center;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 4px 1px 8px 0 rgba(0,0,0,0.59);
+  ${props => !props.isMenuOpen ? css`
+    transform: translateX(-100%);
+    margin-left: -280px;
+  ` : css`
+    transform: translateX(0);
+  `}
+  ${MEDIA_QUERIES.xl} {
+    position: fixed;
+    z-index: 99;
+  }
 `
 
 export const MenuNav = styled.div`

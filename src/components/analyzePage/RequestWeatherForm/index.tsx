@@ -87,30 +87,32 @@ const RequestWeatherForm = () => {
                   type={'text'}
                   error={!!formik.errors.locationName}
                   caption={formik.errors.locationName}
-                  width={'220px'}
+                  // width={'220px'}
                   onChange={(e) => {
                     formik.handleChange(e)
                     mapLocationHandler(formik.values.locationName)
                   }}
                 />
 
-                <Input
-                  label={'Широта'}
-                  name={'latitude'}
-                  type={'number'}
-                  error={!!formik.errors.latitude}
-                  caption={formik.errors.latitude}
-                  width={'120px'}
-                />
+                <Styles.Coordinates>
+                  <Input
+                    label={'Широта'}
+                    name={'latitude'}
+                    type={'number'}
+                    error={!!formik.errors.latitude}
+                    caption={formik.errors.latitude}
+                    // width={'120px'}
+                  />
 
-                <Input
-                  label={'Довгота'}
-                  name={'longitude'}
-                  type={'number'}
-                  error={!!formik.errors.longitude}
-                  caption={formik.errors.longitude}
-                  width={'120px'}
-                />
+                  <Input
+                    label={'Довгота'}
+                    name={'longitude'}
+                    type={'number'}
+                    error={!!formik.errors.longitude}
+                    caption={formik.errors.longitude}
+                    // width={'120px'}
+                  />
+                </Styles.Coordinates>
               </Styles.PlaceWrapper>
 
               <DatePickerField
@@ -119,13 +121,12 @@ const RequestWeatherForm = () => {
                 type={'text'}
                 error={!!formik.errors.dateRange}
                 caption={formik.errors.dateRange}
-                width={'220px'}
+                // width={'220px'}
                 defaultValue={'hello'}
               />
 
               <Button
                 type={'submit'}
-                width={'128px'}
               >
                 <Typography textSize={'14px'} textColor={COLORS.whiteText}>Отримати дані</Typography>
               </Button>

@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React from 'react'
-import {useSWRConfig} from 'swr'
-import {useAppDispatch} from '../../../hooks/redux'
+import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {logout} from '../../../store/reducers/ActionCreators/authActions'
+import {setIsMenuOpen} from '../../../store/reducers/InterfaceSlice'
 import Footer from '../Footer'
 import ConfirmationDialog from '../Modals/ConfirmationDialog'
 import Typography from '../Typography'
@@ -20,11 +20,15 @@ type NavItemPros = {
 }
 
 const NavItem = ({Icon, name, pathName}: NavItemPros) => {
+  const dispatch = useAppDispatch()
   const router = useRouter()
 
   return (
     <Link href={pathName} passHref>
-      <Styles.NavItem isActive={`/${router.pathname.split('/')[1]}` === pathName}>
+      <Styles.NavItem
+        isActive={`/${router.pathname.split('/')[1]}` === pathName}
+        onClick={() => dispatch(setIsMenuOpen(false))}
+      >
         <Icon />
         <Typography textSize={1}>{name}</Typography>
       </Styles.NavItem>
@@ -34,13 +38,14 @@ const NavItem = ({Icon, name, pathName}: NavItemPros) => {
 
 const Menu = () => {
   const dispatch = useAppDispatch()
+  const {isMenuOpen} = useAppSelector(state => state.interfaceReducer)
 
   const logoutHandler = () => {
     dispatch(logout())
   }
 
   return (
-    <Styles.Menu>
+    <Styles.Menu isMenuOpen={isMenuOpen}>
       <Styles.MenuNav>
         {menuItems.map((navItem: NavItemPros, index: number) => (
           <NavItem Icon={navItem.Icon} name={navItem.name} pathName={navItem.pathName} key={`menu-item-${index}`}/>

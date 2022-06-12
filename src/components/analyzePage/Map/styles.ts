@@ -4,6 +4,6 @@ import styled from 'styled-components'
 
 export const CustomMapContainer = styled(MapContainer)`
   width: 100%;
-  height: calc(100% - 90px);
+  height: 100%;
   z-index: 0;
 `

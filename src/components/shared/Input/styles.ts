@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 import {Field} from 'formik'
 import {COLORS} from '../../../styles/theme'
+import { MEDIA_QUERIES } from '../../../utils/mediaQueries'
 
 
 export const InputWrapper = styled.div<{isCaption: boolean, width?: string}>`
@@ -56,6 +57,16 @@ export const DateShorthands = styled.div`
   justify-content: space-between;
   border-radius: 4px;
   margin-top: 4px;
+  ${MEDIA_QUERIES.lg} {
+    margin-top: 23px;
+    max-width: unset;
+  }
+  ${MEDIA_QUERIES.xs} {
+    margin-top: 0;
+  }
+  ${MEDIA_QUERIES.xs} {
+    margin-bottom: 18px;
+  }
 `
 
 export const DateShorthandButton = styled.button`
@@ -84,7 +95,29 @@ export const Divider = styled.span`
 
 export const DatePickerWrapper = styled.div`
   display: flex;
-  gap: 15px;
+  column-gap: 15px;
   align-items: center;
   flex-grow: 1;
+
+  ${MEDIA_QUERIES.lg} {
+    flex-direction: column;
+    max-width: 300px;
+    align-items: flex-start;
+  }
+  ${MEDIA_QUERIES.sm} {
+    flex-direction: row;
+    max-width: unset;
+    width: 100%;
+    > * {
+      width: 100%;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+  }
+  ${MEDIA_QUERIES.xs} {
+    flex-direction: column;
+    > * {
+      flex-basis: unset;
+    }
+  }
 `
