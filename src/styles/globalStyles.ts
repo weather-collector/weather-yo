@@ -1,4 +1,5 @@
 import {createGlobalStyle} from 'styled-components'
+import {COLORS} from './theme'
 
 
 export const GlobalStyles = createGlobalStyle`
@@ -15,18 +16,10 @@ export const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
   }
 
-  html {
-    --color-text: #faf9f9;
-    --color-accent: #3E63DD;
-    --color-primary: #101D46;
-    --color-selection: #05A2C2;
-    --color-white-bg: #F8FAFF;
-  }
-
   body {
     line-height: 1.5;
     overflow-x: hidden;
-    color: var(--color-text);
+    color: #fff;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
@@ -61,12 +54,25 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-moz-selection {
-    background-color: var(--color-selection);
+    background-color: ${COLORS.accent};
     color: #fff;
   }
 
   ::selection {
-    background-color: var(--color-selection);
+    background-color: ${COLORS.accent};
     color: #fff;
+  }
+
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
   }
 `
