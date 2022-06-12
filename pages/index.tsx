@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
 import styled from 'styled-components'
 import ContentContainer from '../src/components/homePage/ContentContainer'
-import BaseLayout from '../src/components/layouts/BaseLayout'
+import BaseLayout from '../src/components/Layouts/BaseLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
 import {COLORS} from '../src/styles/theme'
