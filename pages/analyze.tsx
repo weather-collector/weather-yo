@@ -17,7 +17,7 @@ const InterfaceLoader = dynamic(() => import("../src/components/shared/Loaders/I
 const StyledMainContentWrapper = styled.div`
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
 `
 
 const Analyze: NextPage = () => {

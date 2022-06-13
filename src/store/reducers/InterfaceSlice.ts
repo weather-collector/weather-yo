@@ -8,7 +8,7 @@ interface InterfaceSlice {
 
 const initialState: InterfaceSlice = {
   isLoading: false,
-  isMenuOpen: true,
+  isMenuOpen: false,
 }
 
 export const interfaceSlice = createSlice({

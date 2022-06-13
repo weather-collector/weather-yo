@@ -7,8 +7,8 @@ export const LoaderContainer = styled.div`
   height: 100%;
   background-color: ${COLORS.overlay};
   opacity: 0.5;
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 60px;
   left: 0;
   display: flex;
   align-items: center;

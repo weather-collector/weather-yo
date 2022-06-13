@@ -57,6 +57,7 @@ export const MenuLine = styled.span`
 
 
 export const MenuToggle = styled.div<{isOpen: boolean}>`
+  display: none;
   cursor: pointer;
   background-color: transparent;
   height: 25px;
@@ -83,5 +84,8 @@ export const MenuToggle = styled.div<{isOpen: boolean}>`
     transform: ${props => props.isOpen ? 'translateX(-100%)' : 'translateX(0)'};
     opacity: ${props => props.isOpen ? '0' : '1'};
     transition: all 0.15s ease-in-out;
+  }
+  ${MEDIA_QUERIES.xl} {
+    display: block;
   }
 `
