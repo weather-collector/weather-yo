@@ -14,4 +14,4 @@ export function convertDateToString(date: Date) {
   return ''
 }
 
-export const baseDateRange = `${convertDateToString(subDays(new Date(), 15))} - ${convertDateToString(subDays(new Date(), 6))}`
+export const baseDateRange = `${convertDateToString(subDays(new Date(), 16))} - ${convertDateToString(subDays(new Date(), 7))}`

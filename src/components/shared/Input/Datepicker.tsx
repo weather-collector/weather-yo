@@ -26,8 +26,8 @@ const DatePickerField = ({name, label, error, caption = '', width, placeholder, 
   const {setFieldValue} = useFormikContext()
   const [field] = useField(name)
 
-  const [startDate, setStartDate] = useState<Date | null>(subDays(new Date(), 15))
-  const [endDate, setEndDate] = useState<Date | null>(subDays(new Date(), 6))
+  const [startDate, setStartDate] = useState<Date | null>(subDays(new Date(), 16))
+  const [endDate, setEndDate] = useState<Date | null>(subDays(new Date(), 7))
 
   const onChangeHandler = (dates: Array<Date>) => {
     const [from, to] = dates.map(date => convertDateToString(date))
@@ -49,7 +49,7 @@ const DatePickerField = ({name, label, error, caption = '', width, placeholder, 
           selectsRange
           startDate={startDate}
           endDate={endDate}
-          maxDate={subDays(new Date(), 6)}
+          maxDate={subDays(new Date(), 7)}
           locale={'uk'}
           error={`${error}`}
           id={name}
@@ -82,10 +82,10 @@ const DatepickerShorthands = ({setStartDate, setEndDate, setFieldValue, fieldNam
   const dispatch = useAppDispatch()
 
   const setDatesHandler = (period: number) => {
-    const filedValue = `${convertDateToString(subDays(new Date(), period + 5))} - ${convertDateToString(subDays(new Date(), 6))}`
+    const filedValue = `${convertDateToString(subDays(new Date(), period + 6))} - ${convertDateToString(subDays(new Date(), 7))}`
 
-    setStartDate(subDays(new Date(), period + 5))
-    setEndDate(subDays(new Date(), 6))
+    setStartDate(subDays(new Date(), period + 6))
+    setEndDate(subDays(new Date(), 7))
     setFieldValue(fieldName, filedValue)
     dispatch(setMapFormDateRange(filedValue))
   }

@@ -32,7 +32,7 @@ export const reportSlice = createSlice({
       state.latitude = action.payload.latitude
       state.longitude = action.payload.longitude
       state.address = action.payload.address
-      state.weatherData = action.payload.weatherData.filter(el => el.temp)
+      state.weatherData = action.payload.weatherData//.filter(el => el.temp)
     },
     setSelectedIndicators(state, action: PayloadAction<IWeatherIndicator[]>) {
       state.selectedIndicators = action.payload

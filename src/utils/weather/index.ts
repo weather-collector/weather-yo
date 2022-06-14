@@ -117,6 +117,10 @@ export const getAveragedData = (weatherData: IWeatherData[], averagingValue: num
           tempData = {...tempData, [el[0]]: round(el[1] / weatherData.length)}
           return
         }
+        if (weatherData.length === index + 1) {
+          tempData = {...tempData, [el[0]]: round(el[1] / counter)}
+          return
+        }
         tempData = {...tempData, [el[0]]: round(el[1] / averagingValue)}
       })
       averagedData = [...averagedData, {...tempData, datetime: day.datetime}]
