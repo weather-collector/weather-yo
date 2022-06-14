@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import React, {useRef} from 'react'
-import {useClickAway} from 'react-use'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {logout} from '../../../store/reducers/ActionCreators/authActions'
 import {setIsMenuOpen} from '../../../store/reducers/InterfaceSlice'
@@ -46,9 +45,9 @@ const Menu = () => {
     dispatch(logout())
   }
 
-  useClickAway(ref, () => {
-    dispatch(setIsMenuOpen(false))
-  })
+  // useClickAway(ref, () => {
+  //   dispatch(setIsMenuOpen(false))
+  // })
 
   return (
     <Styles.Menu isMenuOpen={isMenuOpen} ref={ref}>

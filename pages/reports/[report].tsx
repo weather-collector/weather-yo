@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import BaseLayout from '../../src/components/Layouts/BaseLayout'
 import ReportHeader from '../../src/components/reportsPage/ReportHeader'
 import ReportTab from '../../src/components/reportsPage/ReportTab'
+import MetaHead from '../../src/components/shared/MetaHead'
 import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
 import {getSingleReport} from '../../src/store/reducers/ActionCreators/reportActions'
 import {MEDIA_QUERIES} from '../../src/utils/mediaQueries'
@@ -36,13 +37,16 @@ const ReportPage: NextPage = () => {
   }, [router.query.report])
 
   return (
-    <BaseLayout>
-      <StyledMainContentWrapper>
-        {isLoading && <InterfaceLoader />}
-        <ReportHeader />
-        <ReportTab />
-      </StyledMainContentWrapper>
-    </BaseLayout>
+    <>
+      <MetaHead />
+      <BaseLayout>
+        <StyledMainContentWrapper>
+          {isLoading && <InterfaceLoader />}
+          <ReportHeader />
+          <ReportTab />
+        </StyledMainContentWrapper>
+      </BaseLayout>
+    </>
   )
 }
 

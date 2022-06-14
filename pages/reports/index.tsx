@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import BaseLayout from '../../src/components/Layouts/BaseLayout'
 import ReportsTable from '../../src/components/reportsPage/ReportsTable'
+import MetaHead from '../../src/components/shared/MetaHead'
 import Typography from '../../src/components/shared/Typography'
 import {useReports} from '../../src/hooks/reports/useReports'
 import {COLORS} from '../../src/styles/theme'
@@ -35,15 +36,18 @@ const Reports: NextPage = () => {
   const {reports, isLoading} = useReports()
 
   return (
-    <BaseLayout>
-      <StyledMainContentWrapper>
-        {isLoading && <InterfaceLoader />}
-        <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Ваші звіти</Typography>
-        {reports && (
-          <ReportsTable reports={reports} />
-        )}
-      </StyledMainContentWrapper>
-    </BaseLayout>
+    <>
+      <MetaHead />
+      <BaseLayout>
+        <StyledMainContentWrapper>
+          {isLoading && <InterfaceLoader />}
+          <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Ваші звіти</Typography>
+          {reports && (
+            <ReportsTable reports={reports} />
+          )}
+        </StyledMainContentWrapper>
+      </BaseLayout>
+    </>
   )
 }
 

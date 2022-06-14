@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import RequestWeatherForm from '../src/components/analyzePage/RequestWeatherForm'
 import BaseLayout from '../src/components/Layouts/BaseLayout'
+import MetaHead from '../src/components/shared/MetaHead'
 import {useAppSelector} from '../src/hooks/redux'
 
 
@@ -24,13 +25,16 @@ const Analyze: NextPage = () => {
   const {isLoading} = useAppSelector(state => state.interfaceReducer)
 
   return (
-    <BaseLayout>
-      <StyledMainContentWrapper>
-        {isLoading && <InterfaceLoader />}
-        <RequestWeatherForm />
-        <LeafletMap />
-      </StyledMainContentWrapper>
-    </BaseLayout>
+    <>
+      <MetaHead />
+      <BaseLayout>
+        <StyledMainContentWrapper>
+          {isLoading && <InterfaceLoader />}
+          <RequestWeatherForm />
+          <LeafletMap />
+        </StyledMainContentWrapper>
+      </BaseLayout>
+    </>
   )
 }
 

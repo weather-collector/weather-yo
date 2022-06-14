@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import UpdatePassForm from '../src/components/forms/UpdatePassForm'
 import ContactForm from '../src/components/forms/СontactForm'
 import BaseLayout from '../src/components/Layouts/BaseLayout'
+import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
 import {COLORS} from '../src/styles/theme'
 import {MEDIA_QUERIES} from '../src/utils/mediaQueries'
@@ -52,21 +53,24 @@ const FormWrapper = styled.div`
 
 const Settings: NextPage = () => {
   return (
-    <BaseLayout>
-      <StyledMainContentWrapper>
-        <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Налаштування</Typography>
-        <StyledFormsWrapper>
-          <FormWrapper>
-            <Typography textSize={2} textColor={COLORS.primary} fontWeight={500}>Зміна пароля</Typography>
-            <UpdatePassForm />
-          </FormWrapper>
-          <FormWrapper>
-            <Typography textSize={2} textColor={COLORS.primary} fontWeight={500}>Зворотній зв&apos;язок</Typography>
-            <ContactForm />
-          </FormWrapper>
-        </StyledFormsWrapper>
-      </StyledMainContentWrapper>
-    </BaseLayout>
+    <>
+      <MetaHead />
+      <BaseLayout>
+        <StyledMainContentWrapper>
+          <Typography textSize={3} textColor={COLORS.black} fontWeight={600}>Налаштування</Typography>
+          <StyledFormsWrapper>
+            <FormWrapper>
+              <Typography textSize={2} textColor={COLORS.primary} fontWeight={500}>Зміна пароля</Typography>
+              <UpdatePassForm />
+            </FormWrapper>
+            <FormWrapper>
+              <Typography textSize={2} textColor={COLORS.primary} fontWeight={500}>Зворотній зв&apos;язок</Typography>
+              <ContactForm />
+            </FormWrapper>
+          </StyledFormsWrapper>
+        </StyledMainContentWrapper>
+      </BaseLayout>
+    </>
   )
 }
 

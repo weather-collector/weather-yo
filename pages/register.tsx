@@ -11,7 +11,7 @@ const Register: NextPage = () => {
   return (
     <>
       <MetaHead
-        title={'Реєстрація'}
+        title={'Weather Collector: Реєстрація'}
       />
       <AuthLayout>
         <span style={{marginBottom: '20px'}}>

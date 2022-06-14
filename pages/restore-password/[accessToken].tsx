@@ -15,7 +15,7 @@ const RestorePassword: NextPage = () => {
   return (
     <>
       <MetaHead
-        title={'Відновлення доступу'}
+        title={'Weather Collector: Відновлення доступу'}
       />
       <AuthLayout>
         <span style={{marginBottom: '20px'}}>

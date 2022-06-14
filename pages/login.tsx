@@ -11,7 +11,7 @@ const Login: NextPage = () => {
   return (
     <>
       <MetaHead
-        title={'Вхід'}
+        title={'Weather Collector: Вхід'}
       />
       <AuthLayout>
         <span style={{marginBottom: '20px'}}>
