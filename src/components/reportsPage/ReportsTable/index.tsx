@@ -72,7 +72,7 @@ const ReportsTable = ({reports, pagination}: ReportsTableProps) => {
   ]
 
   return (
-    <Table style={{overflowX: 'auto'}} pagination={pagination} columns={columns} dataSource={reports} rowKey={'id'} />
+    <Table style={{minWidth: '780px'}} pagination={pagination} columns={columns} dataSource={reports} rowKey={'id'} />
   )
 }
 

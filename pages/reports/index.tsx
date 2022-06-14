@@ -7,6 +7,7 @@ import ReportsTable from '../../src/components/reportsPage/ReportsTable'
 import Typography from '../../src/components/shared/Typography'
 import {useReports} from '../../src/hooks/reports/useReports'
 import {COLORS} from '../../src/styles/theme'
+import {MEDIA_QUERIES} from '../../src/utils/mediaQueries'
 
 
 const InterfaceLoader = dynamic(() => import("../../src/components/shared/Loaders/InterfaceLoader"), {
@@ -18,6 +19,12 @@ const StyledMainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow-x: auto;
+
+  ${MEDIA_QUERIES.lg} {
+    margin-bottom: 30px;
+  }
+
   > * {
     padding: 10px;
   }

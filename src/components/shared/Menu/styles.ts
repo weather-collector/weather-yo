@@ -22,7 +22,7 @@ export const Menu = styled.nav<{ isMenuOpen: boolean }>`
     position: fixed;
     z-index: 99;
     ${props => !props.isMenuOpen ? css`
-      transform: translateX(-100%);
+      transform: translateX(-110%);
       //margin-left: -280px;
     ` : css`
       transform: translateX(0);

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import React from 'react'
+import React, {useRef} from 'react'
+import {useClickAway} from 'react-use'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {logout} from '../../../store/reducers/ActionCreators/authActions'
 import {setIsMenuOpen} from '../../../store/reducers/InterfaceSlice'
@@ -39,16 +40,21 @@ const NavItem = ({Icon, name, pathName}: NavItemPros) => {
 const Menu = () => {
   const dispatch = useAppDispatch()
   const {isMenuOpen} = useAppSelector(state => state.interfaceReducer)
+  const ref = useRef(null)
 
   const logoutHandler = () => {
     dispatch(logout())
   }
 
+  useClickAway(ref, () => {
+    dispatch(setIsMenuOpen(false))
+  })
+
   return (
-    <Styles.Menu isMenuOpen={isMenuOpen}>
+    <Styles.Menu isMenuOpen={isMenuOpen} ref={ref}>
       <Styles.MenuNav>
         {menuItems.map((navItem: NavItemPros, index: number) => (
-          <NavItem Icon={navItem.Icon} name={navItem.name} pathName={navItem.pathName} key={`menu-item-${index}`}/>
+          <NavItem Icon={navItem.Icon} name={navItem.name} pathName={navItem.pathName} key={`menu-item-${index}`} />
         ))}
         <ConfirmationDialog
           trigger={

@@ -11,8 +11,8 @@ interface MapFormState {
 
 const initialState: MapFormState = {
   locationName: '',
-  latitude: 0,
-  longitude: 0,
+  latitude: 49.59,
+  longitude: 34.55,
   dateRange: baseDateRange,
 }
 

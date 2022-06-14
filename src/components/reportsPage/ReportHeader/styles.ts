@@ -18,6 +18,9 @@ export const HeaderWrapper = styled.div`
 export const ReportInfo = styled.div`
   display: flex;
   gap: 50px;
+  ${MEDIA_QUERIES.sm} {
+    gap: 20px;
+  }
 `
 
 export const Location = styled.div`

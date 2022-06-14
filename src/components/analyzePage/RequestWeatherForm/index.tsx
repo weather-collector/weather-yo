@@ -1,6 +1,6 @@
 import {Formik, FormikProps} from 'formik'
 import {useRouter} from 'next/router'
-import React, {useRef, useState} from 'react'
+import React, {ChangeEvent, useRef, useState} from 'react'
 import * as Yup from 'yup'
 import {useAppDispatch, useAppSelector} from '../../../hooks/redux'
 import {setFromFormToMap} from '../../../store/reducers/ActionCreators/mapFormActions'
@@ -23,8 +23,8 @@ interface GatherFormValues {
 
 const GatherSchema = Yup.object().shape({
   locationName: Yup.string().required("*Обов'язкове поле"),
-  latitude: Yup.number().min(-90, '-90 мінімільне').max(90, '90 максимальне').required("*Обов'язкове поле"),
-  longitude: Yup.number().min(-180, '-180 мінімальне').max(180, '180 максимальне').required("*Обов'язкове поле"),
+  latitude: Yup.number().min(-90, '-90 мінімільне').max(90, '90 макс.').required("*Обов'язкове поле"),
+  longitude: Yup.number().min(-180, '-180 мінімальне').max(180, '180 макс.').required("*Обов'язкове поле"),
   dateRange: Yup.string().required("*Обов'язкове поле"),
 })
 
@@ -60,6 +60,7 @@ const RequestWeatherForm = () => {
 
   const timeout = useRef()
   const mapLocationHandler = (location: string) => {
+    console.log(location)
     if (location && location.length >= 3) {
       clearTimeout(timeout.current)
       // @ts-ignore
@@ -87,11 +88,7 @@ const RequestWeatherForm = () => {
                   type={'text'}
                   error={!!formik.errors.locationName}
                   caption={formik.errors.locationName}
-                  // width={'220px'}
-                  onChange={(e) => {
-                    formik.handleChange(e)
-                    mapLocationHandler(formik.values.locationName)
-                  }}
+                  onInput={(e: ChangeEvent<HTMLInputElement>) => mapLocationHandler(e.target.value)}
                 />
 
                 <Styles.Coordinates>
@@ -101,7 +98,6 @@ const RequestWeatherForm = () => {
                     type={'number'}
                     error={!!formik.errors.latitude}
                     caption={formik.errors.latitude}
-                    // width={'120px'}
                   />
 
                   <Input
@@ -110,7 +106,6 @@ const RequestWeatherForm = () => {
                     type={'number'}
                     error={!!formik.errors.longitude}
                     caption={formik.errors.longitude}
-                    // width={'120px'}
                   />
                 </Styles.Coordinates>
               </Styles.PlaceWrapper>
@@ -121,7 +116,6 @@ const RequestWeatherForm = () => {
                 type={'text'}
                 error={!!formik.errors.dateRange}
                 caption={formik.errors.dateRange}
-                // width={'220px'}
                 defaultValue={'hello'}
               />
 

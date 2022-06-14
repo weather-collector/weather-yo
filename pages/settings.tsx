@@ -15,11 +15,18 @@ const StyledMainContentWrapper = styled.div`
   flex-direction: column;
   position: relative;
   gap: 40px;
+
+  ${MEDIA_QUERIES.lg} {
+    margin-bottom: 30px;
+  }
+
   ${MEDIA_QUERIES.md} {
     gap: 0;
   }
+
   > * {
     padding: 10px;
+
     &:nth-child(2) {
       display: flex;
       gap: 50px;

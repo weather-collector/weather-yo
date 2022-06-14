@@ -5,6 +5,7 @@ import BaseLayout from '../src/components/Layouts/BaseLayout'
 import MetaHead from '../src/components/shared/MetaHead'
 import Typography from '../src/components/shared/Typography'
 import {COLORS} from '../src/styles/theme'
+import {MEDIA_QUERIES} from '../src/utils/mediaQueries'
 
 
 const StyledMainContentWrapper = styled.div`
@@ -14,6 +15,9 @@ const StyledMainContentWrapper = styled.div`
   gap: 15px;
   position: relative;
 
+  ${MEDIA_QUERIES.lg} {
+    margin-bottom: 30px;
+  }
   > * {
     padding: 10px;
   }

@@ -83,7 +83,7 @@ const RegisterForm = () => {
                 <Typography textSize={1} textColor={COLORS.whiteText}>Зареєструватися</Typography>
               </Button>
             </Styles.FormWrapper>
-            <div id={'google-login'} style={{display: 'flex', justifyContent: 'center'}} />
+            <div id={'google-login'} style={{display: 'flex', justifyContent: 'center', height: '40px'}} />
             <Link href={'/login'}>
               <a>
                 <Button

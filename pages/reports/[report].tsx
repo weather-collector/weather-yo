@@ -8,6 +8,8 @@ import ReportHeader from '../../src/components/reportsPage/ReportHeader'
 import ReportTab from '../../src/components/reportsPage/ReportTab'
 import {useAppDispatch, useAppSelector} from '../../src/hooks/redux'
 import {getSingleReport} from '../../src/store/reducers/ActionCreators/reportActions'
+import {MEDIA_QUERIES} from '../../src/utils/mediaQueries'
+
 
 const InterfaceLoader = dynamic(() => import("../../src/components/shared/Loaders/InterfaceLoader"), {
   ssr: false,
@@ -16,6 +18,10 @@ const InterfaceLoader = dynamic(() => import("../../src/components/shared/Loader
 const StyledMainContentWrapper = styled.div`
   position: relative;
   width: 100%;
+
+  ${MEDIA_QUERIES.lg} {
+    margin-bottom: 30px;
+  }
 `
 
 const ReportPage: NextPage = () => {
